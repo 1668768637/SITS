@@ -1,0 +1,70 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校园信息交流系统|{% block title %}{% endblock %}</title>
+
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/myjs.js' %}"></script>   
+
+</head>
+<body background = '{% block background %}{% endblock %}' id="body">
+    
+    <div class="sign-in">
+        <form method="post" action="{% url 'log' 'login' %}" name="signInForm"> {% csrf_token %}
+        <div class="input_1"><div class="login_logo">用户登录</div><div class="close">X</div></div>
+        <hr>
+        <div class="input_1"><input type="text" name="username" id="user" placeholder="&nbsp;用户名"></div>
+        <div class="input_1"><input type="password" name="password" id="password" placeholder="&nbsp;密码"></div>
+        <div class="input_1"><input class="submit_1" type="submit" value="登&nbsp;录"></div>
+        </form>
+    </div>
+    <div id="top-container">
+        <p id="title">校园信息交流系统</p>
+        {% if request.session.username %}
+        <a href="#" style="float: right; margin-right: 5%;">{{request.session.username}}</a>
+        <a href="{% url 'log' 'logout' %}" style="float: right;" id="logout">退出登录</a>
+        {% else %}
+        <div id="login-group">
+            <button id="sign-in">登录</button>
+            
+            <button id="sign-up">注册</button>
+            
+        </div>
+        {% endif %}
+    </div>
+    <div id="main-container">
+        <div id="left-main-container">
+            <ul class="nav nav-tabs nav-stacked" id="base-nav">
+                <li role="presentation" id="home"><a href="{% url 'home' %}">首页</a></li>
+                <li role="presentation" id="anecdoteForum"><a href="{% url 'anecdoteForum' %}">校园轶事</a></li>
+                <li role="presentation" id="driftBottle"><a href="{% url 'driftBottle' %}">漂流瓶</a></li>
+                <li role="presentation" id="eventInformation"><a href="{% url 'eventInformation' %}">活动信息</a></li>
+                <li role="presentation" id="lostAndFound"><a href="{% url 'lostAndFound' %}">失物招领</a></li>
+                <li role="presentation" id="loveWall"><a href="{% url 'loveWall' %}">表白墙</a></li>
+            </ul>
+        </div>
+        <div id="right-main-container">
+            {% block right-main-container %}{% endblock %}
+        </div>
+    </div>
+</body>
+
+<script type="text/JavaScript">
+    $('#{{active_menu}}').addClass("active");
+</script>
+
+{% if error %}
+<script type="text/JavaScript">
+    $('.sign-in').addClass('open');
+    alert('{{error}}')
+</script>
+{% endif %}
+
+</html>
