@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.conf.urls import include
 from home.views import home,log
 from anecdoteForum.views import anecdoteForum
 from lostAndFound.views import lostAndFound
@@ -27,7 +26,8 @@ from loveWall.views import loveWall
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',home,name='home'), 
-    path('log/<str:logState>/',log,name='log'), 
+    path('home/',home,name='home'), 
+    path('home/<str:logState>/',log,name='log'),
     path('anecdoteForum/',anecdoteForum,name='anecdoteForum'),
     path('lostAndFound/',lostAndFound,name='lostAndFound'),
     path('driftBottle/',driftBottle,name='driftBottle'),

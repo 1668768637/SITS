@@ -11,8 +11,8 @@ from django.contrib.auth import authenticate, login, logout
 
 def home(request):
     return render(request, 'home.html')
-    
-    
+
+
 def log(request,logState):
     """
     :return:
@@ -37,7 +37,9 @@ def log(request,logState):
     else:
         if logState == 'logout':
             request.session['username'] = ""
-            my_logout(request)
+            # my_logout(request)
+            logout(request)
+            return redirect("/home")
 
 
 def my_login(request):
@@ -47,7 +49,6 @@ def my_login(request):
     """
     return render(request, "login.html")
 
-
 @login_required()
 def   my_logout(request):
     """
@@ -55,8 +56,7 @@ def   my_logout(request):
     :return: 退出并重定向到登录页面
     """
     logout(request)
-    return redirect("/")
-
+    return redirect("/home")
 
 @login_required()
 def index(request):
