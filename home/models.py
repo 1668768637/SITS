@@ -5,8 +5,7 @@ from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
 class UserProfileManager(BaseUserManager):
     def create_user(self, password=None, **kwargs):
         """
-        Creates and saves a User with the given username, date of
-        birth and password.
+        Creates and saves a User with the given username, password.
         """
         if not kwargs:
             raise ValueError('Users must have an username address')
@@ -42,11 +41,12 @@ class UserProfile(AbstractBaseUser):
         null=True,
         blank=True,
         unique=True, )
-    photo = models.ImageField(verbose_name="头像",null=True,upload_to="Photos/")
+    headPortrait = models.ImageField(verbose_name="头像",null=True,upload_to="Photos/headPortrait")
     phone = models.CharField(max_length=128, null=True, blank=True)
     qq = models.CharField(max_length=128, null=True, blank=True)
     wechat = models.CharField(max_length=128, null=True, blank=True)
     sex = models.CharField(max_length=45, null=True, blank=True)
+    personalSignature = models.CharField(max_length=500, null=True,blank=True)
     is_active = models.BooleanField(verbose_name='是否可用', default=True)
     is_admin = models.BooleanField(verbose_name='是否管理员', default=False)
     create_date = models.DateTimeField(

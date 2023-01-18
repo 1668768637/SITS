@@ -37,12 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'lostAndFound',
-    'anecdoteForum',
-    'driftBottle',
-    'eventInformation',
-    'loveWall',
     'home',
+    'forum'
 ]
 
 MIDDLEWARE = [

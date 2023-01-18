@@ -16,21 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from home.views import home,log
-from anecdoteForum.views import anecdoteForum
-from lostAndFound.views import lostAndFound
-from driftBottle.views import driftBottle
-from eventInformation.views import eventInformation
-from loveWall.views import loveWall
+from forum.views import forum
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',home,name='home'), 
-    path('home/',home,name='home'), 
-    path('home/<str:logState>/',log,name='log'),
-    path('anecdoteForum/',anecdoteForum,name='anecdoteForum'),
-    path('lostAndFound/',lostAndFound,name='lostAndFound'),
-    path('driftBottle/',driftBottle,name='driftBottle'),
-    path('eventInformation/',eventInformation,name='eventInformation'),
-    path('loveWall/',loveWall,name='loveWall'),
+    path('home',home,name='home'), 
+    path('forum/<str:postType>',forum,name='forum'),
+    path('log/<str:logState>/',log,name='log'),
 ]
