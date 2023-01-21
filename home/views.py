@@ -1,8 +1,8 @@
-from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from .models import UserProfile,UserProfileManager
+from django.http import JsonResponse
 @csrf_exempt
 
 # Create your views here.
@@ -18,46 +18,35 @@ def log(request,logState):
     失败:返回login页面,并提示错误
     """
     #if request.method == 'POST':
+    sourceHtml = request.META['HTTP_REFERER']
+
     if logState == 'login':
-        username = request.POST['username']
-        password = request.POST['password']
-        if(username=="" and password==""):
-            print("kong")
-            return render(request, 'home.html', {'error': '用户名户密码错误！',})
-        print(username+"||"+password)
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)  # 保存登录会话,将登陆的信息封装到request.user,包括session
-            request.session['username']=user.get_username()
-            return redirect("/")
+        username = request.POST.get('user')
+        password = request.POST.get('password')
+        if username=='' or password=='':
+            print("账号或密码为空")
+            return JsonResponse({'error': '用户名或密码为空！',})
         else:
-            return render(request, 'home.html', {'error': '用户名户密码错误！',})
+            print(username+"||"+password)
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)  # 保存登录会话,将登陆的信息封装到request.user,包括session
+                request.session['username']=user.get_username() 
+                return JsonResponse({})
+            else:
+                return JsonResponse( {'error': '用户名或密码错误！',})
     else:
         if logState == 'logout':
             request.session['username'] = ""
-            return my_logout(request)
+            logout(request)
+            return redirect(sourceHtml)
 
 
-def my_login(request):
-    """
-    :param request
-    :return: 展示登录页面
-    """
-    return render(request, "login.html")
+def signUp(request):
+    username = request.POST.get('user')
+    password = request.POST.get('password')
+    user = UserProfile.objects.create_user(password=password,username=username)
+    user.save()
+    sourceHtml = request.META['HTTP_REFERER']
+    return redirect(sourceHtml)
 
-@login_required()
-def  my_logout(request):
-    """
-    :param request
-    :return: 退出并重定向到登录页面
-    """
-    logout(request)
-    return redirect("/home")
-
-@login_required()
-def index(request):
-    """
-    :param request
-    :return: 用户首页
-    """
-    return render(request, "index.html")

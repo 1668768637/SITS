@@ -40,7 +40,7 @@ class UserProfile(AbstractBaseUser):
         max_length=255,
         null=True,
         blank=True,
-        unique=True, )
+        unique=False, )
     headPortrait = models.ImageField(verbose_name="头像",null=True,upload_to="Photos/headPortrait")
     phone = models.CharField(max_length=128, null=True, blank=True)
     qq = models.CharField(max_length=128, null=True, blank=True)
@@ -90,5 +90,5 @@ class UserProfile(AbstractBaseUser):
 
     class Meta:
         db_table = 'home_user_profile'
-        verbose_name = '用户管理'
-        verbose_name_plural = "用户管理"
+        verbose_name = 'user'
+        verbose_name_plural = "user"

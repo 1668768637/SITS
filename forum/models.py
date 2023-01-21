@@ -4,7 +4,6 @@ from django.utils import timezone
 # Create your models here.
 
 class Post(models.Model):
-    #POST_TYPE = ('lostAndFound','anecdoteForum','driftBottle','eventInformation','loveWall',)
     POST_TYPE = (
         ('lostAndFound','lostAndFound'),
         ('anecdoteForum','anecdoteForum'),
@@ -43,6 +42,8 @@ class Post(models.Model):
 
     class Meta:
         db_table = "Posts"
+        verbose_name = 'post'
+        verbose_name_plural = "post"
 
 
 class PostImage(models.Model):
@@ -55,5 +56,5 @@ class PostImage(models.Model):
                               verbose_name='帖子图片')
 
     class Meta:
-        verbose_name = '帖子图片'
-        verbose_name_plural = '帖子图片'
+        verbose_name = 'postIMG'
+        verbose_name_plural = 'postIMG'

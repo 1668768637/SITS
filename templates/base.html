@@ -17,12 +17,23 @@
 <body background = '{% block background %}{% endblock %}' id="body">
     
     <div class="sign-in">
-        <form method="post" action="{% url 'log' 'login' %}" name="signInForm"> {% csrf_token %}
-        <div class="input_1"><div class="login_logo">用户登录</div><div class="close">X</div></div>
+        <div class="input_1"><div class="login_logo">用户登录</div>
+        <div class="close">X</div></div>
         <hr>
-        <div class="input_1"><input type="text" name="username" id="user" placeholder="&nbsp;用户名"></div>
-        <div class="input_1"><input type="password" name="password" id="password" placeholder="&nbsp;密码"></div>
-        <div class="input_1"><input class="submit_1" type="submit" value="登&nbsp;录"></div>
+        <div class="input_1"><input type="text" name="user" id="loginUser" placeholder="&nbsp;用户名"></div>
+        <div class="input_1"><input type="password" name="password" id="loginPassword" placeholder="&nbsp;密码"></div>
+        <div><p id="loginMsg"></p></div>
+        <div class="input_1"><input class="submit_1" type="submit" id="login" value="登&nbsp;录"></div>
+    </div>
+    <div class="sign-up">
+        <form method="post" action="{% url 'signUp'%}" name="signInForm"> {% csrf_token %}
+            <div class="input_1"><div class="signUp_logo">用户注册</div>
+            <div class="close">X</div></div>
+            <hr>
+            <div class="input_1"><input type="text" name="user" id="user_signup" placeholder="&nbsp;用户名"></div>
+            <div class="input_1"><input type="password" name="password" id="password_signup" placeholder="&nbsp;密码"></div>
+            <div><p id="signuptMsg"></p></div>
+            <div class="input_1"><input class="submit_1" type="submit" id="signup"  value="注&nbsp;册"></div>
         </form>
     </div>
     <div id="top-container">
@@ -43,11 +54,11 @@
         <div id="left-main-container">
             <ul class="nav nav-tabs nav-stacked" id="base-nav">
                 <li role="presentation" id="home"><a href="{% url 'home' %}">首页</a></li>
-                <li role="presentation" id="anecdoteForum"><a href="{% url 'forum' 'anecdoteForum' %}">校园轶事</a></li>
-                <li role="presentation" id="driftBottle"><a href="{% url 'forum' 'driftBottle' %}">漂流瓶</a></li>
-                <li role="presentation" id="eventInformation"><a href="{% url 'forum' 'eventInformation' %}">活动信息</a></li>
-                <li role="presentation" id="lostAndFound"><a href="{% url 'forum' 'lostAndFound' %}">失物招领</a></li>
-                <li role="presentation" id="loveWall"><a href="{% url 'forum' 'loveWall' %}">表白墙</a></li>
+                <li role="presentation" id="anecdoteForum"><a href="{% url 'anecdoteForum' %}">校园轶事</a></li>
+                <li role="presentation" id="driftBottle"><a href="{% url 'driftBottle' %}">漂流瓶</a></li>
+                <li role="presentation" id="eventInformation"><a href="{% url 'eventInformation' %}">活动信息</a></li>
+                <li role="presentation" id="lostAndFound"><a href="{% url 'lostAndFound' %}">失物招领</a></li>
+                <li role="presentation" id="loveWall"><a href="{% url 'loveWall' %}">表白墙</a></li>
             </ul>
         </div>
         <div id="right-main-container">
@@ -63,7 +74,7 @@
 {% if error %}
 <script type="text/JavaScript">
     $('.sign-in').addClass('open');
-    alert('{{error}}')
+    alert('{{error}}');
 </script>
 {% endif %}
 

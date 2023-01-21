@@ -290,6 +290,23 @@
 	margin-left: 35%;
 	border-radius: 10px;
 }
+
+.sign-up{
+	width: 400px;
+	height: 300px;
+	border:3px solid #f8f8f8;
+	visibility: hidden;
+	position: absolute;
+	z-index: 998;
+	opacity: 1;
+	overflow: hidden;
+	background-color: white;
+	text-align: center;
+	margin-top: 10%;
+	margin-left: 35%;
+	border-radius: 10px;
+}
+
 .open{
 	visibility: visible;
 	opacity: 1;
