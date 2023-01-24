@@ -1,7 +1,8 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
-from .models import UserProfile,UserProfileManager
+from django.contrib.auth import authenticate, login, logout,password_validation
+from django.core.exceptions import ValidationError
+from .models import UserProfile
 from django.http import JsonResponse
 @csrf_exempt
 
@@ -44,9 +45,48 @@ def log(request,logState):
 
 def signUp(request):
     username = request.POST.get('user')
-    password = request.POST.get('password')
-    user = UserProfile.objects.create_user(password=password,username=username)
-    user.save()
-    sourceHtml = request.META['HTTP_REFERER']
-    return redirect(sourceHtml)
+    password1 = request.POST.get('password1')
+    password2 = request.POST.get('password2')
+    errors = []
+
+    if username == '':
+        errors.append("用户名不能为空")
+    else:
+        if len(username) < 6:
+            errors.append("用户名太短")
+        if UserProfile.objects.filter(username=username).exists():
+            errors.append("用户名不唯一")
+
+    if password1 == '':
+        errors.append("密码不能为空")
+    else:
+        if password1 != password2:
+            errors.append("两个密码不相等")
+        else:
+            if len(password1) < 8:
+                errors.append("密码少于八个字符")
+            try:
+                password_validation.validate_password(password=password1,password_validators=password_validation.get_password_validators([
+                    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
+                    ]))
+            except ValidationError :
+                errors.append("密码不能是纯数字")
+            try:
+                password_validation.validate_password(password=password1,password_validators=password_validation.get_password_validators([
+                    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',},
+                    ]))
+            except ValidationError :
+                errors.append("密码太过简单")
+    
+    
+
+    if len(errors) == 0:
+        user = UserProfile.objects.create_user(password=password1,username=username)
+        user.save()
+        login(request,user)
+        request.session['username']=user.get_username() 
+        return JsonResponse({})
+    else:
+        return JsonResponse({'error':errors})
+        
 

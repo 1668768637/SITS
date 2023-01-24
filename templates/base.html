@@ -17,24 +17,32 @@
 <body background = '{% block background %}{% endblock %}' id="body">
     
     <div class="sign-in">
-        <div class="input_1"><div class="login_logo">用户登录</div>
-        <div class="close">X</div></div>
+        <div class="input_1">
+            <div class="login_logo">
+                用户登录
+                <div class="close">X</div>
+            </div>
+        </div>
         <hr>
-        <div class="input_1"><input type="text" name="user" id="loginUser" placeholder="&nbsp;用户名"></div>
-        <div class="input_1"><input type="password" name="password" id="loginPassword" placeholder="&nbsp;密码"></div>
+        <div class="input_1"><input type="text" id="loginUser" placeholder="&nbsp;用户名"></div>
+        <div class="input_1"><input type="password"  id="loginPassword" placeholder="&nbsp;密码"></div>
         <div><p id="loginMsg"></p></div>
         <div class="input_1"><input class="submit_1" type="submit" id="login" value="登&nbsp;录"></div>
     </div>
     <div class="sign-up">
-        <form method="post" action="{% url 'signUp'%}" name="signInForm"> {% csrf_token %}
-            <div class="input_1"><div class="signUp_logo">用户注册</div>
-            <div class="close">X</div></div>
+            <div class="input_1">
+                <div class="signUp_logo">
+                    用户注册
+                    <div class="close">X</div>
+                </div>
+            </div>
+            <div class="signupIntroduce" >我们只需要最一些最基本的信息用以注册，然后你可以使用更多功能</div>
             <hr>
-            <div class="input_1"><input type="text" name="user" id="user_signup" placeholder="&nbsp;用户名"></div>
-            <div class="input_1"><input type="password" name="password" id="password_signup" placeholder="&nbsp;密码"></div>
+            <div class="input_1"><input type="text" name="user" id="signupUser" placeholder="&nbsp;用户名"></div>
+            <div class="input_1"><input type="password"  id="signupPassword1" placeholder="&nbsp;密码"></div>
+            <div class="input_1"><input type="password"  id="signupPassword2" placeholder="&nbsp;密码"></div>
             <div><p id="signuptMsg"></p></div>
             <div class="input_1"><input class="submit_1" type="submit" id="signup"  value="注&nbsp;册"></div>
-        </form>
     </div>
     <div id="top-container">
         <p id="title">校园信息交流系统</p>

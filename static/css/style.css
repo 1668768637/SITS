@@ -277,7 +277,6 @@
 
 .sign-in{
 	width: 400px;
-	height: 300px;
 	border:3px solid #f8f8f8;
 	visibility: hidden;
 	position: absolute;
@@ -293,7 +292,6 @@
 
 .sign-up{
 	width: 400px;
-	height: 300px;
 	border:3px solid #f8f8f8;
 	visibility: hidden;
 	position: absolute;
