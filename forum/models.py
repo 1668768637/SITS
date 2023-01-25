@@ -38,6 +38,11 @@ class Post(models.Model):
         default=timezone.now,
         verbose_name='发布时间'
     )
+    likesNum = models.IntegerField(
+        verbose_name="点赞数",
+        null=False,
+        default=0
+    )
 
 
     class Meta:
@@ -48,7 +53,7 @@ class Post(models.Model):
 
 class PostImage(models.Model):
     product = models.ForeignKey(Post,
-                                related_name='productImgs',
+                                related_name='postImages',
                                 verbose_name='帖子',
                                 on_delete=models.CASCADE)
     photo = models.ImageField(upload_to='Photos/PostsPhoto',

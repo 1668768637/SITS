@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block cssBlock %}
+<link href="{% static 'css/postDetail.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+{{post.title}}
+{% endblock %}
+
+{% block background %}
+{% static 'img/8.png' %}
+{% endblock %}
+
+{% block right-main-container %}
+    <div class="row-md-6">
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.context}}</p>
+    </div>
+    <div>
+        {% for img in post.postImages.all %}
+        <img class="img-responsive model-img thumbnail" width="100px" height="200px" src="{{img.photo.url}}">
+        {% endfor %}
+    </div>
+{% endblock %}

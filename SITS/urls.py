@@ -28,3 +28,9 @@ urlpatterns = [
     path('log/<str:logState>/',log,name='log'),
     path('signUp',signUp,name='signUp'),
 ]
+
+#加入media文件夹支持
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

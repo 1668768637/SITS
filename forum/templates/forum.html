@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block title %}
-首页
+{{postType}}
 {% endblock %}
 {% block background %}
 {% static 'img/8.png' %}
@@ -25,5 +25,4 @@
     </div>
 </div>
 {% endfor %}
-
 {% endblock %}

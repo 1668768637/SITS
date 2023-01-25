@@ -18,9 +18,6 @@ from .views import *
 
 
 urlpatterns = [
-    path('anecdoteForum',anecdoteForum,name='anecdoteForum'),
-    path('lostAndFound',lostAndFound,name='lostAndFound'),
-    path('driftBottle',driftBottle,name='driftBottle'),
-    path('eventInformation',eventInformation,name='eventInformation'),
-    path('loveWall',loveWall,name='loveWall'),
+    path('<str:postType>',forum,name='forum'),
+    path('findForumById/<int:postId>',findForumById,name='findForumById')
 ]

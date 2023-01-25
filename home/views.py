@@ -3,12 +3,14 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout,password_validation
 from django.core.exceptions import ValidationError
 from .models import UserProfile
+from forum.models import Post
 from django.http import JsonResponse
 @csrf_exempt
 
 # Create your views here.
 def home(request):
-    return render(request,'home.html',{'active_menu':'home'})
+    postList = Post.objects.all().order_by("likesNum")
+    return render(request,'home.html',{'active_menu':'home','postList':postList})
 
 
 
