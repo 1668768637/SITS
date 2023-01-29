@@ -12,20 +12,18 @@ class Post(models.Model):
         ('loveWall','loveWall')
         )
 
-    id = models.IntegerField(
-        unique=True,
-        primary_key=True,
-        verbose_name="id")
     title = models.CharField(
         verbose_name="标题",
         max_length=45,
         null=False)
     context = models.TextField(
         verbose_name="内容",
+        null=False
     )
-    ownerNum = models.ForeignKey(
+    owner = models.ForeignKey(
         UserProfile,
         verbose_name="所有者",
+        related_name="ownerNum",
         on_delete=models.CASCADE,
         null=False)
     postType = models.CharField(
@@ -36,7 +34,7 @@ class Post(models.Model):
     publishDate = models.DateField(
         max_length=20,
         default=timezone.now,
-        verbose_name='发布时间'
+        verbose_name='发布日期'
     )
     likesNum = models.IntegerField(
         verbose_name="点赞数",
@@ -52,7 +50,7 @@ class Post(models.Model):
 
 
 class PostImage(models.Model):
-    product = models.ForeignKey(Post,
+    owner = models.ForeignKey(Post,
                                 related_name='postImages',
                                 verbose_name='帖子',
                                 on_delete=models.CASCADE)

@@ -3,27 +3,27 @@
 {% block title %}
 首页
 {% endblock %}
-{% block background %}
-{% static 'img/8.png' %}
-{% endblock %}
 
 {% block right-main-container %}
-{% for post in postList %}
-<div class="col">
-    <div class="row-md-6">
-        <a href="{% url 'findForumById' post.id %}"><h3>{{ post.title }}</h3></a>
-        <p>{{ post.context}}</p>
+<div id="postList" class="col-sm-10">
+    {% for post in postList %}
+    <div class="post">
+        <div class="">
+            <a href="{% url 'findForumById' post.id %}"><h3>{{ post.title }}</h3></a>
+            <p>{{ post.context}}</p>
+        </div>
+        <div class="" id="imgList">
+            <div class="col-sm-3">
+                {% for img in post.postImages.all %}
+                {% if forloop.first %}
+                <a href="{% url 'findForumById' post.id %}" class="thumbnail row-4">
+                    <img class="img-responsive model-img" src="{{img.photo.url}}">
+                </a>
+            {% endif %}
+            {% endfor %}
+            </div>
+        </div>
     </div>
-    <div class="row-md-6">
-        {% for img in post.postImages.all %}
-        {% if forloop.first %}
-        <a href="{% url 'findForumById' post.id %}" class="thumbnail row-4">
-            <img class="img-responsive model-img" width="100px" height="200px" src="{{img.photo.url}}">
-        </a>
-        {% endif %}
-        {% endfor %}
-    </div>
+    {% endfor %}
 </div>
-{% endfor %}
-
 {% endblock %}

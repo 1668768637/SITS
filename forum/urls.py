@@ -18,6 +18,7 @@ from .views import *
 
 
 urlpatterns = [
+    path('newPost',newPost,name='newPost'),
     path('<str:postType>',forum,name='forum'),
-    path('findForumById/<int:postId>',findForumById,name='findForumById')
+    path('findForumById/<int:postId>',findForumById,name='findForumById'), 
 ]

@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
 
-from home.views import home,log,signUp
+from home.views import home,log,signUp,userInfo,elimateSession
 
 
 urlpatterns = [
@@ -27,6 +27,8 @@ urlpatterns = [
     path('forum/',include('forum.urls')),
     path('log/<str:logState>/',log,name='log'),
     path('signUp',signUp,name='signUp'),
+    path('userInfo',userInfo,name='userInfo'),
+    path('elimateSession/<str:name>',elimateSession,name="elimateSession")
 ]
 
 #加入media文件夹支持

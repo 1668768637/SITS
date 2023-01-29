@@ -236,10 +236,41 @@
 }
 
 /*------------自定义css-----------*/
+#body{
+	background-color: #f8f8f8;
+}
+
+#errorDiv{
+	width: 100%;
+}
+#errorDiv button{
+	height: 20px;
+	text-align: center;
+	background-color: rgb(255,228,196);
+	border:rgb(255,228,196);
+	width: 2%;
+	line-height: 0px;
+	float: right;
+}
+#userErrorMsg{
+	text-align: center;
+    background-color: rgb(255,228,196);
+	height: 20px;
+	width: 98%;
+}
+
 #top-container{
 	height: 150px;
 	width: auto;
 }
+
+#title{
+	margin-top: 1%;
+	text-align: center;
+	font-size: 80px;
+	font-family: "古风字体";
+}
+
 #left-main-container{
 	float: left;
 	margin-left: 10%;
@@ -250,16 +281,10 @@
 
 #right-main-container{
 	float:left;
-	width: auto;
+	width: 75%;
 	height: auto;
 }
 
-#top-container p{
-	margin-top: 1%;
-	text-align: center;
-	font-size: 80px;
-	font-family: "古风字体";
-}
 
 #main-container #left-main-container #base-nav a{
 	background-color: rgba(255,0,0,0);
@@ -345,4 +370,28 @@
 .input_1 .submit_1:hover{
 	background-color: #f88020;
 	color:white;
+}
+
+.post{
+	height: 500px;
+	padding-left: 10px;
+	font-size: 26px;
+}
+.post div h3{
+	text-align: center;
+}
+.post div p{
+	text-indent: 2em;
+	font-size: 20px;
+	word-break: break-all;
+	word-wrap: break-word;
+	
+}
+
+
+#postList{
+	float: left;
+}
+#options{
+	float: left;
 }

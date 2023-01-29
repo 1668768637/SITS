@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新建帖子</title>
+</head>
+<body>
+    <div class="postDesign">
+        <form action="/forum/newPost" method="post" enctype="multipart/form-data">
+            <div>
+                <nobr>标题</nobr>
+                <input type="text" name="title">
+            </div>
+            <div>
+                <nobr>内容</nobr>
+                <input type="text" name="context">
+            </div>
+            <div>
+                <nobr>类型</nobr>
+                <input type="text"  name="postType">
+            </div>
+            <div>
+                <nobr>图片</nobr>
+                <input type="file" multiple="multiple" accept="image/*" name="postImages" id="">
+            </div>
+            <div>
+                <button type="submit">新建帖子</button>
+            </div>
+        </form>
+    </div>
+    {% if postErrors %}
+        {% for error in postErrors %}
+            <p>{{error}}</p>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>

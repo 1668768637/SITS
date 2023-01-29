@@ -3,26 +3,32 @@
 {% block title %}
 {{postType}}
 {% endblock %}
-{% block background %}
-{% static 'img/8.png' %}
+
+{% block cssBlock %}
+<link href="{% static 'css/forum.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block right-main-container %}
-{% for post in postList %}
-<div class="col">
-    <div class="row-md-6">
-        <a href="{% url 'findForumById' post.id %}"><h3>{{ post.title }}</h3></a>
-        <p>{{ post.context}}</p>
+<div id="postList" class="col-sm-10">
+    {% for post in postList %}
+    <div class="post">
+        <div class="">
+            <a href="{% url 'findForumById' post.id %}"><h3>{{ post.title }}</h3></a>
+            <p>{{ post.context}}</p>
+        </div>
+        <div class="imgList container">
+            <div class="row">
+                {% for img in post.postImages.all %}
+                <a href="{% url 'findForumById' post.id %}" class="thumbnail col-xs-3" >
+                    <img class="img-responsive model-img" src="{{img.photo.url}}">
+                </a>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-    <div class="row-md-6">
-        {% for img in post.postImages.all %}
-        {% if forloop.first %}
-        <a href="{% url 'findForumById' post.id %}" class="thumbnail row-4">
-            <img class="img-responsive model-img" width="100px" height="200px" src="{{img.photo.url}}">
-        </a>
-        {% endif %}
-        {% endfor %}
-    </div>
+    {% endfor %}
 </div>
-{% endfor %}
+<div id="options" class="col-sm-2">
+    <a href="{% url 'newPost' %}"><button>新建帖子</button></a>
+</div>
 {% endblock %}

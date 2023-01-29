@@ -1,0 +1,73 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人信息</title>
+</head>
+<body>
+    {% if user %}
+    <div id="baseInfo">
+        <div id="headPortrait">
+            {% if user.headPortrait %}
+            <img src="{{user.headPortrait.url}}" alt="暂无头像">
+            {% else %}
+            <img src="#" alt="暂无头像">
+            {% endif %}
+        </div>
+        <div id="info">
+            <button id="alter" onclick="alterInfo()">修改个人信息</button>
+            <p><nobr>账号:</nobr><nobr class="test">{{user.username}}</nobr></p>
+            <p><nobr>昵称:</nobr><nobr class="test">{{user.nickName}}</nobr></p>
+            <p><nobr>性别:</nobr><nobr class="test">{{user.sex}}</nobr></p>
+            <p><nobr>个性签名:</nobr><nobr class="test">{{user.personalSignature}}</nobr></p>
+            <p><nobr>注册日期:</nobr><nobr class="test">{{user.create_date.year}}-{{user.create_date.month}}-{{user.create_date.day}} {{user.create_date.hour}}:{{user.create_date.second}}</nobr></p>
+            <p><nobr>邮箱:</nobr><nobr class="test">{{user.email}}</nobr></p>
+            <p><nobr>电话:</nobr><nobr class="test">{{user.phone}}</nobr></p>
+            <p><nobr>QQ:</nobr><nobr class="test">{{user.qq}}</nobr></p>
+            <p><nobr>微信:</nobr><nobr class="test">{{user.wechat}}</nobr></p>
+        </div>
+    </div>
+    <div id="userPosts">
+        <div id="postList">
+            {% for post in postList %}
+            <div class="post">
+                <div class="">
+                    <a href="{% url 'findForumById' post.id %}"><h3>{{ post.title }}</h3></a>
+                    <p>{{ post.context}}</p>
+                </div>
+                <div class="" id="imgList">
+                    <div class="col-sm-3">
+                        {% for img in post.postImages.all %}
+                        {% if forloop.first %}
+                        <a href="{% url 'findForumById' post.id %}" class="thumbnail row-4">
+                            <img class="img-responsive model-img" src="{{img.photo.url}}">
+                        </a>
+                    {% endif %}
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <p>该用户不存在</p>
+    {% endif %}
+</body>
+
+<script type="text/JavaScript">
+    function alterInfo() {
+        var a = document.getElementsByClassName("test");
+        var i;
+        for(i=0;i<a.length;i++){
+            var temp = a[i].innerHTML;
+            a[i].innerHTML = "<input type=\"text\" value=\"" + temp + "\" name=\"\" id=\"\">" + "<button>修改</button>";
+        }
+        
+    }
+</script>
+</html>
+

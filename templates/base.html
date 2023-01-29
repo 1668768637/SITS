@@ -15,7 +15,7 @@
     <script src="{% static 'js/myjs.js' %}"></script>   
 
 </head>
-<body background = '{% block background %}{% endblock %}' id="body">
+<body id="body">
     
     <div class="sign-in">
         <div class="input_1">
@@ -25,10 +25,10 @@
             </div>
         </div>
         <hr>
-        <div class="input_1"><input type="text" id="loginUser" placeholder="&nbsp;用户名"></div>
+        <div class="input_1"><input type="text" id="loginUser" placeholder="&nbsp;账号"></div>
         <div class="input_1"><input type="password"  id="loginPassword" placeholder="&nbsp;密码"></div>
         <div><p id="loginMsg"></p></div>
-        <div class="input_1"><input class="submit_1" type="submit" id="login" value="登&nbsp;录"></div>
+        <div class="input_1"><input class="submit_1" type="button" id="login" value="登&nbsp;录"></div>
     </div>
     <div class="sign-up">
             <div class="input_1">
@@ -37,25 +37,29 @@
                     <div class="close">X</div>
                 </div>
             </div>
-            <div class="signupIntroduce" >我们只需要最一些最基本的信息用以注册，然后你可以使用更多功能</div>
+            <div id="signupIntroduce" >我们只需要最一些最基本的信息用以注册，然后你可以进入个人中心以编辑</div>
             <hr>
-            <div class="input_1"><input type="text" name="user" id="signupUser" placeholder="&nbsp;用户名"></div>
+            <div class="input_1"><input type="text" name="user" id="signupUser" placeholder="&nbsp;账号"></div>
             <div class="input_1"><input type="password"  id="signupPassword1" placeholder="&nbsp;密码"></div>
-            <div class="input_1"><input type="password"  id="signupPassword2" placeholder="&nbsp;密码"></div>
+            <div class="input_1"><input type="password"  id="signupPassword2" placeholder="&nbsp;重复你的密码"></div>
             <div><p id="signuptMsg"></p></div>
             <div class="input_1"><input class="submit_1" type="submit" id="signup"  value="注&nbsp;册"></div>
     </div>
     <div id="top-container">
+        {% if request.session.userError %}
+        <div id="errorDiv"><!--  
+         --><marquee id="userErrorMsg" behavior="scroll" direction="up" scrollAmount="0">{{request.session.userError}}</marquee><!-- 
+         --><button id="userErrorMsgCloseBtn" type="button">x</button><!--
+     --></div>
+        {% endif %}
         <p id="title">校园信息交流系统</p>
-        {% if request.session.username %}
-        <a href="#" style="float: right; margin-right: 5%;">{{request.session.username}}</a>
+        {% if request.session.nickName %}
+        <a href="{% url 'userInfo' %}" style="float: right; margin-right: 5%;">{{request.session.nickName}}</a>
         <a href="{% url 'log' 'logout' %}" style="float: right;" id="logout">退出登录</a>
         {% else %}
         <div id="login-group">
             <button id="sign-in">登录</button>
-            
             <button id="sign-up">注册</button>
-            
         </div>
         {% endif %}
     </div>

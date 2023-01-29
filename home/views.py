@@ -9,7 +9,7 @@ from django.http import JsonResponse
 
 # Create your views here.
 def home(request):
-    postList = Post.objects.all().order_by("likesNum")
+    postList = Post.objects.all().order_by("-likesNum")
     return render(request,'home.html',{'active_menu':'home','postList':postList})
 
 
@@ -28,19 +28,20 @@ def log(request,logState):
         password = request.POST.get('password')
         if username=='' or password=='':
             print("账号或密码为空")
-            return JsonResponse({'error': '用户名或密码为空！',})
+            return JsonResponse({'logError': '用户名或密码为空！',})
         else:
             print(username+"||"+password)
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)  # 保存登录会话,将登陆的信息封装到request.user,包括session
-                request.session['username']=user.get_username() 
+                request.session['nickName']=user.get_nickName()
+                request.session['userError']=""
                 return JsonResponse({})
             else:
-                return JsonResponse( {'error': '用户名或密码错误！',})
+                return JsonResponse( {'logError': '用户名或密码错误！',})
     else:
         if logState == 'logout':
-            request.session['username'] = ""
+            request.session['nickName'] = ""
             logout(request)
             return redirect(sourceHtml)
 
@@ -80,15 +81,21 @@ def signUp(request):
             except ValidationError :
                 errors.append("密码太过简单")
     
-    
 
     if len(errors) == 0:
         user = UserProfile.objects.create_user(password=password1,username=username)
-        user.save()
         login(request,user)
-        request.session['username']=user.get_username() 
+        request.session['nickName']=user.get_nickName()
         return JsonResponse({})
     else:
-        return JsonResponse({'error':errors})
+        return JsonResponse({'logError':errors})
         
 
+def userInfo(request):
+    user = UserProfile.objects.filter(username=request.user.username)
+    postList = postList = Post.objects.all().filter(ownerNum=request.user.id).order_by("-likesNum")
+    return render(request,'userInfo.html',{'user':user[0],'postList':postList})
+
+def elimateSession(request,name):
+    request.session[name] = ""
+    return JsonResponse({})

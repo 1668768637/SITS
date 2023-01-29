@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
 
 # Create your models here.
@@ -14,6 +15,7 @@ class UserProfileManager(BaseUserManager):
         user = self.model(**kwargs)
         # 设置密码
         user.set_password(password)
+
         user.save(using=self._db)
         return user
 
@@ -33,7 +35,7 @@ class UserProfileManager(BaseUserManager):
 class UserProfile(AbstractBaseUser):
     username = models.CharField(
         verbose_name='username',
-        max_length=128,
+        max_length=10,
         unique=True, )
     email = models.EmailField(
         verbose_name='email',
@@ -42,11 +44,12 @@ class UserProfile(AbstractBaseUser):
         blank=True,
         unique=False, )
     headPortrait = models.ImageField(verbose_name="头像",null=True,upload_to="Photos/headPortrait")
+    nickName = models.CharField(verbose_name="昵称",null=False,max_length=15,default="default")
     phone = models.CharField(max_length=128, null=True, blank=True)
     qq = models.CharField(max_length=128, null=True, blank=True)
     wechat = models.CharField(max_length=128, null=True, blank=True)
     sex = models.CharField(max_length=45, null=True, blank=True)
-    personalSignature = models.CharField(max_length=500, null=True,blank=True)
+    personalSignature = models.CharField(verbose_name="个性签名",max_length=500, null=True,blank=True)
     is_active = models.BooleanField(verbose_name='是否可用', default=True)
     is_admin = models.BooleanField(verbose_name='是否管理员', default=False)
     create_date = models.DateTimeField(
@@ -56,11 +59,13 @@ class UserProfile(AbstractBaseUser):
 
     # 使用username作为必须的字段
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email']
 
-    def get_user_name(self):
+    def get_userName(self):
         # The user is identified by their username address
         return self.username
+    
+    def get_nickName(self):
+        return self.nickName
 
 
     def has_perm(self, perm, obj=None):
