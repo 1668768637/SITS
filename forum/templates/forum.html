@@ -4,14 +4,11 @@
 {{postType}}
 {% endblock %}
 
-{% block cssBlock %}
-<link href="{% static 'css/forum.css' %}" rel="stylesheet">
-{% endblock %}
 
 {% block right-main-container %}
 <div id="postList" class="col-xs-10">
     {% for post in postList %}
-    <div class="post">
+    <div class="post row">
         <div class="title">
             <a href="{% url 'findForumById' post.id %}"><h3>{{ post.title }}</h3></a>
             <p>{{ post.context}}</p>
@@ -19,7 +16,7 @@
         <div class="imgList">
             <div class="">
                 {% for img in post.postImages.all %}
-                <a href="{% url 'findForumById' post.id %}" class="thumbnail col-xs-3" >
+                <a href="{% url 'findForumById' post.id %}" class="thumbnail" >
                     <img class="img-responsive model-img" src="{{img.photo.url}}">
                 </a>
                 {% endfor %}
