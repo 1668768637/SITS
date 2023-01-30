@@ -16,11 +16,14 @@
         <div class="imgList">
             <div class="">
                 {% for img in post.postImages.all %}
-                <a href="{% url 'findForumById' post.id %}" class="thumbnail" >
+                <a href="{% url 'findForumById' post.id %}" class="thumbnail col-xs-3">
                     <img class="img-responsive model-img" src="{{img.photo.url}}">
                 </a>
                 {% endfor %}
             </div>
+        </div>
+        <div class="options">
+            <button class="likePost" type="button" id="{{post.id}}"><span class="glyphicon glyphicon-thumbs-up"></span></button>
         </div>
     </div>
     {% endfor %}

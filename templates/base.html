@@ -52,7 +52,7 @@
          --><button id="userErrorMsgCloseBtn" type="button">x</button><!--
      --></div>
         {% endif %}
-        <p id="title">校园信息交流系统</p>
+        <p id="title" class="row">校园信息交流系统</p>
         {% if request.session.nickName %}
         <a href="{% url 'userInfo' %}" style="float: right; margin-right: 5%;">{{request.session.nickName}}</a>
         <a href="{% url 'log' 'logout' %}" style="float: right;" id="logout">退出登录</a>
