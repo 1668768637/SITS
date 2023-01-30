@@ -81,3 +81,9 @@ def newPost(request):
                     else:
                         errors.append(i.name+'上传失败')
         return render(request,'newPost.html',{'postErrors':errors})
+
+def likePost(request,postId):
+    post = Post.objects.all().filter(id=postId).first()
+    post.likesNum = post.likesNum+1
+    post.save()
+    return JsonResponse({})

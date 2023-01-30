@@ -260,20 +260,24 @@
 }
 
 #top-container{
-	height: 150px;
-	width: auto;
+	width: 100%;
+	height: auto;
+}
+
+.clearfloat{
+	clear:both;
+	height:0;
+	font-size:1px;
+	line-height:0px;
 }
 
 #title{
 	margin-top: 1%;
 	text-align: center;
-	font-size: 80px;
+	font-size: 8vw;
 	font-family: "古风字体";
 }
 
-#main-container{
-	padding-top: 10px;
-}
 
 #left-main-container{
 	float: left;
@@ -287,6 +291,9 @@
 	height: auto;
 }
 
+#main-container{
+	padding-top: 5px;
+}
 
 #main-container #left-main-container #base-nav a{
 	background-color: rgba(255,0,0,0);
@@ -297,7 +304,7 @@
 }
 
 #login-group{
-	height: 20px;
+	height: aoto;
 	float: right;
 	margin-right: 5%;
 }
@@ -391,6 +398,7 @@
 }
 
 .imgList{
+	width: 100%;
 	float: left;
 }
 
@@ -400,4 +408,8 @@
 }
 #options{
 	float: left;
+}
+
+.options{
+	float: right;
 }
