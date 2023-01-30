@@ -260,17 +260,20 @@
 }
 
 #top-container{
-	width: 100%;
-	height: auto;
+	height: 150px;
+	width: auto;
 }
 
 #title{
 	margin-top: 1%;
 	text-align: center;
-	font-size: 8vw;
+	font-size: 80px;
 	font-family: "古风字体";
 }
 
+#main-container{
+	padding-top: 10px;
+}
 
 #left-main-container{
 	float: left;
@@ -388,7 +391,6 @@
 }
 
 .imgList{
-	width: 100%;
 	float: left;
 }
 
@@ -398,8 +400,4 @@
 }
 #options{
 	float: left;
-}
-
-.options{
-	float: right;
 }

@@ -16,7 +16,7 @@
             <div class="">
                 {% for img in post.postImages.all %}
                 {% if forloop.first %}
-                <a href="{% url 'findForumById' post.id %}" class="thumbnail col-xs-3">
+                <a href="{% url 'findForumById' post.id %}" class="thumbnail">
                     <img class="img-responsive model-img" src="{{img.photo.url}}">
                 </a>
             {% endif %}
