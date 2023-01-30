@@ -65,9 +65,6 @@ def newPost(request):
             if title=="" or context=="":
                 errors.append("标题和内容不能为空")
             else:
-                owner=request.user
-                postType=request.POST.get("postType")
-                
                 post = Post(
                     title=request.POST.get("title"),
                     context=request.POST.get("context"),

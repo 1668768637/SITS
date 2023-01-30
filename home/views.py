@@ -93,7 +93,7 @@ def signUp(request):
 
 def userInfo(request):
     user = UserProfile.objects.filter(username=request.user.username)
-    postList = postList = Post.objects.all().filter(ownerNum=request.user.id).order_by("-likesNum")
+    postList = Post.objects.all().filter(owner=request.user.id).order_by("-likesNum")
     return render(request,'userInfo.html',{'user':user[0],'postList':postList})
 
 def elimateSession(request,name):

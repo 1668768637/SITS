@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,25 +6,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>新建帖子</title>
+
+    <!-- <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script> -->
 </head>
 <body>
     <div class="postDesign">
         <form action="/forum/newPost" method="post" enctype="multipart/form-data">
             <div>
-                <nobr>标题</nobr>
-                <input type="text" name="title">
+                <nobr>
+                    标题
+                    <input type="text" name="title">
+                </nobr>
+                
             </div>
             <div>
-                <nobr>内容</nobr>
-                <input type="text" name="context">
+                <nobr>
+                    内容
+                    <input type="text" name="context">
+                </nobr>
             </div>
             <div>
-                <nobr>类型</nobr>
-                <input type="text"  name="postType">
+                <nobr>
+                    类型
+                    <select name="postType" id="">
+                        <option value="lostAndFound">失物招领</option>
+                        <option value="anecdoteForum">轶事趣闻</option>
+                        <option value="driftBottle">漂流瓶</option>
+                        <option value="eventInformation">活动信息</option>
+                        <option value="loveWall">表白墙</option>
+                    </select>
+                </nobr>
             </div>
             <div>
-                <nobr>图片</nobr>
-                <input type="file" multiple="multiple" accept="image/*" name="postImages" id="">
+                <nobr> 
+                    图片
+                    <input type="file" multiple="multiple" accept="image/*" name="postImages" id="">
+                </nobr>
+                
             </div>
             <div>
                 <button type="submit">新建帖子</button>

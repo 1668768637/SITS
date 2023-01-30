@@ -9,15 +9,15 @@
 {% endblock %}
 
 {% block right-main-container %}
-<div id="postList" class="col-sm-10">
+<div id="postList" class="col-xs-10">
     {% for post in postList %}
     <div class="post">
-        <div class="">
+        <div class="title">
             <a href="{% url 'findForumById' post.id %}"><h3>{{ post.title }}</h3></a>
             <p>{{ post.context}}</p>
         </div>
-        <div class="imgList container">
-            <div class="row">
+        <div class="imgList">
+            <div class="">
                 {% for img in post.postImages.all %}
                 <a href="{% url 'findForumById' post.id %}" class="thumbnail col-xs-3" >
                     <img class="img-responsive model-img" src="{{img.photo.url}}">
@@ -28,7 +28,7 @@
     </div>
     {% endfor %}
 </div>
-<div id="options" class="col-sm-2">
+<div id="options" class="col-xs-2">
     <a href="{% url 'newPost' %}"><button>新建帖子</button></a>
 </div>
 {% endblock %}
