@@ -5,25 +5,4 @@
 {% endblock %}
 
 {% block right-main-container %}
-<div id="postList" class="col-xs-10">
-    {% for post in postList %}
-    <div class="post row">
-        <div class="title">
-            <a href="{% url 'findForumById' post.id %}"><h3>{{ post.title }}</h3></a>
-            <p>{{ post.context}}</p>
-        </div>
-        <div class="imgList">
-            <div class="">
-                {% for img in post.postImages.all %}
-                {% if forloop.first %}
-                <a href="{% url 'findForumById' post.id %}" class="thumbnail col-xs-3">
-                    <img class="img-responsive model-img" src="{{img.photo.url}}">
-                </a>
-            {% endif %}
-            {% endfor %}
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-</div>
 {% endblock %}

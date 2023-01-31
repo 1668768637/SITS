@@ -16,7 +16,6 @@
 
 </head>
 <body id="body">
-    
     <div class="sign-in">
         <div class="input_1">
             <div class="login_logo">
@@ -65,8 +64,9 @@
         <div class="clearfloat"></div>
     </div>
     <div id="main-container">
-        <div id="left-main-container " class="col-xs-2">
-            <ul class="nav nav-tabs nav-stacked" id="base-nav">
+        <div id="left-main-container" class="col-xs-2 col-md-2">
+            <div class="col-xs-4 col-md-4"></div>
+            <ul class="nav nav-tabs nav-stacked col-xs-8 col-md-8" id="base-nav">
                 <li role="presentation" id="home"><a href="{% url 'home' %}">首页</a></li>
                 <li role="presentation" id="anecdoteForum"><a href="{% url 'forum' 'anecdoteForum' %}">校园轶事</a></li>
                 <li role="presentation" id="driftBottle"><a href="{% url 'forum' 'driftBottle' %}">漂流瓶</a></li>
@@ -75,10 +75,35 @@
                 <li role="presentation" id="loveWall"><a href="{% url 'forum' 'loveWall' %}">表白墙</a></li>
             </ul>
         </div>
-        <div id="right-main-container" class="col-xs-10 container">
-            {% block right-main-container %}{% endblock %}
+        <div id="right-main-container" class="col-xs-10 col-md-10 container">
+            <div id="postList" class="col-xs-12 col-md-11">
+                {% for post in postList %}
+                <div class="post row">
+                    <div class="postTitle">
+                        <a href="{% url 'findForumById' post.id %}"><h3>{{ post.title }}</h3></a>
+                        <p>{{ post.context}}</p>
+                    </div>
+                    <div class="imgList">
+                        <div style="float: left;">
+                            {% for img in post.postImages.all %}
+                            <a href="{% url 'findForumById' post.id %}" class="thumbnail col-xs-4 col-md-3">
+                                <img class="" src="{{img.photo.url}}">
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="options">
+                        <button class="likePost" type="button" id="{{post.id}}"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-xs-0 col-md-1">
+            </div>
         </div>
+        <div class="clearfloat"></div>
     </div>
+    
 </body>
 
 <script type="text/JavaScript">

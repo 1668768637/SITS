@@ -262,6 +262,7 @@
 #top-container{
 	width: 100%;
 	height: auto;
+	padding-bottom: 5px;
 }
 
 .clearfloat{
@@ -274,17 +275,13 @@
 #title{
 	margin-top: 1%;
 	text-align: center;
-	font-size: 8vw;
+	font-size: 5vw;
 	font-family: "古风字体";
 }
 
 
-#left-main-container{
-	float: left;
-	margin-left: 10%;
-	width: 200px;
-	height: auto;
-	font-size: 22px;
+#base-nav{
+	padding-right: 0px;
 }
 
 #right-main-container{
@@ -293,15 +290,10 @@
 
 #main-container{
 	padding-top: 5px;
+	width: 100%;
+	height: auto;
 }
 
-#main-container #left-main-container #base-nav a{
-	background-color: rgba(255,0,0,0);
-}
-
-#main-container #left-main-container #base-nav li{
-	margin-top: 2px;
-}
 
 #login-group{
 	height: aoto;
@@ -383,8 +375,14 @@
 
 .post{
 	height: auto;
+	position: relative;
 	padding-left: 10px;
+	padding-bottom: 10px;
+	padding-right: 10px;
 	font-size: 26px;
+	border:2px solid #468;
+	border-radius: 20px;
+	margin-bottom: 5px;
 }
 .post div h3{
 	text-align: center;
@@ -406,8 +404,17 @@
 #postList{
 	float: left;
 }
+
 #options{
 	float: left;
+}
+
+.likePost{
+	font-size: 2vw;
+}
+
+#options #newPost{
+	font-size: 1vw;
 }
 
 .options{

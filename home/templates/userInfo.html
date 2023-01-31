@@ -30,6 +30,9 @@
             <p><nobr>微信:</nobr><nobr class="test">{{user.wechat}}</nobr></p>
         </div>
     </div>
+    <div id="options" class="col-xs-2">
+        <a href="{% url 'newPost' %}"><button id="newPost">新建帖子</button></a>
+    </div>
     <div id="userPosts">
         <div id="postList">
             {% for post in postList %}

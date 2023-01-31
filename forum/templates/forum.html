@@ -3,32 +3,3 @@
 {% block title %}
 {{postType}}
 {% endblock %}
-
-
-{% block right-main-container %}
-<div id="postList" class="col-xs-10">
-    {% for post in postList %}
-    <div class="post row">
-        <div class="title">
-            <a href="{% url 'findForumById' post.id %}"><h3>{{ post.title }}</h3></a>
-            <p>{{ post.context}}</p>
-        </div>
-        <div class="imgList">
-            <div class="">
-                {% for img in post.postImages.all %}
-                <a href="{% url 'findForumById' post.id %}" class="thumbnail col-xs-3">
-                    <img class="img-responsive model-img" src="{{img.photo.url}}">
-                </a>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="options">
-            <button class="likePost" type="button" id="{{post.id}}"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-        </div>
-    </div>
-    {% endfor %}
-</div>
-<div id="options" class="col-xs-2">
-    <a href="{% url 'newPost' %}"><button>新建帖子</button></a>
-</div>
-{% endblock %}
