@@ -3,3 +3,38 @@
 {% block title %}
 {{postType}}
 {% endblock %}
+
+{% block right-main-container %}
+<div id="postList" class="col-xs-12 col-md-11">
+    {% for post in postList %}
+    <div class="post row">
+        <div class="postTitle">
+            <a href="{% url 'findForumById' post.id %}"><h3>{{ post.title }}</h3></a>
+            <p>{{ post.context}}</p>
+        </div>
+        <div class="imgList">
+            {% for img in post.postImages.all %}
+                {% if forloop.counter0 < 4 %}
+                    {% if forloop.counter0 == 3 %}
+                    <a href="{% url 'findForumById' post.id %}" class="thumbnail col-xs-6 col-md-3" style="text-align: center;">
+                        <div class="bg">
+                            <p>。。。</p>
+                        </div>
+                        <img src="{{img.photo.url}}"  class="lastImg">
+                    </a>
+                    {% else %}
+                    <img class="thumbnail col-xs-6 col-md-3" src="{{img.photo.url}}">
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="options">
+            <button class="likePost" type="button" id="{{post.id}}"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="col-xs-0 col-md-1">
+</div>
+
+{% endblock %}
