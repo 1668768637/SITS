@@ -7,7 +7,7 @@
 {% block right-main-container %}
 <div id="postList" class="col-xs-12 col-md-11">
     {% for post in postList %}
-    <div class="post row">
+    <div class="post row"  id="{{post.id}}">
         <div class="postTitle">
             <a href="{% url 'findForumById' post.id %}"><h3>{{ post.title }}</h3></a>
             <p>{{ post.context}}</p>
@@ -29,7 +29,10 @@
             {% endfor %}
         </div>
         <div class="options">
-            <button class="likePost" type="button" id="{{post.id}}"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+            <div class="like">
+                <button class="likePost" type="button"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+                <p>{{post.likesNum}}</p>
+            </div>
         </div>
     </div>
     {% endfor %}

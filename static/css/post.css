@@ -1,0 +1,129 @@
+.post{
+	height: auto;
+	position: relative;
+	padding-left: 10px;
+	padding-bottom: 10px;
+	padding-right: 10px;
+	font-size: 26px;
+	border:2px solid #468;
+	border-radius: 20px;
+	margin-bottom: 5px;
+}
+.post div h3{
+	text-align: center;
+}
+.post .postTitle p{
+	text-indent: 2em;
+	font-size: 20px;
+	word-break: break-all;
+	word-wrap: break-word;
+	
+}
+
+.imgList{
+	width: 100%;
+	float: left;
+}
+
+
+#postList{
+	float: left;
+}
+
+.options{
+	width: 100%;
+	float: right;
+}
+
+.likePost{
+	font-size: 2vw;
+	float: right;
+	display: flex;
+}
+.likePost span{
+	padding-top: 2px;
+}
+
+.like{
+	float: right;
+	padding-right: 2px;
+}
+.like p{
+	text-align: center;
+	font-size: 2vw;
+}
+
+
+.lastImg{
+	opacity: 0.8;
+	filter: brightness(0.3);
+	z-index: -1;
+}
+
+.bg{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+.bg p{
+	vertical-align: middle; 
+	width:100%; 
+	margin:auto; 
+	text-align:center;
+	font-size: 2vw;
+}
+.commits{
+	width: 100%;
+	float: left;
+}
+
+.commitCommits{
+	text-indent: 2em;
+}
+
+.liked{
+	background-color: yellow;
+}
+
+.delete{
+    float: right;
+    padding-right: 2px;
+    font-size: 1.5vw;
+}
+
+.makeCommit{
+    float: right;
+    padding-right: 2px;
+    font-size: 1.5vw;
+}
+
+.divMakeCommit{
+	width: 100%;
+	float: right;
+}
+
+/* 小屏幕设备 */
+@media only screen and (max-width: 990px) {
+	.postCommit p{
+		font-size: 15px;
+	}
+	
+	.commitCommit p{
+		font-size: 12px;
+		padding-left: 2em;
+	}
+}
+
+/* 大屏幕设备 */
+@media only screen and (min-width: 990px) and (max-width: 1920px){
+	.postCommit p{
+		font-size: 25px;
+	}
+	
+	.commitCommit p{
+		font-size: 20px;
+		padding-left: 1em;
+	}
+}

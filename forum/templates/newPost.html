@@ -7,13 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>新建帖子</title>
 
-    <!-- <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
     <script src="{% static 'js/jquery.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script> -->
+    <script src="{% static 'js/jquery.form.js' %}"></script>
+    <script src="{% static 'js/newPost.js' %}"></script>
 </head>
 <body>
     <div class="postDesign">
-        <form action="/forum/newPost" method="post" enctype="multipart/form-data">
+        <form id="postForm" action="/forum/newPost" method="post" enctype="multipart/form-data">
             <div>
                 <nobr>
                     标题
@@ -42,14 +42,13 @@
             <div>
                 <nobr> 
                     图片
-                    <input type="file" multiple="multiple" accept="image/*" name="postImages" id="">
+                    <input type="file" multiple="multiple" accept="image/*" name="postImages">
                 </nobr>
-                
-            </div>
-            <div>
-                <button type="submit">新建帖子</button>
             </div>
         </form>
+        <div>
+            <button id="submit" onclick="newPost()">新建帖子</button>
+        </div>
     </div>
     {% if postErrors %}
         {% for error in postErrors %}
@@ -57,4 +56,5 @@
         {% endfor %}
     {% endif %}
 </body>
+
 </html>

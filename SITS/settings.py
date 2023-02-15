@@ -130,3 +130,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 #select the user model
 AUTH_USER_MODEL = 'home.UserProfile'
+
+#set dafault timezone
+USE_TZ = False
+TIME_ZONE = "Asia/Shanghai"

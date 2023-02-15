@@ -91,10 +91,24 @@ def signUp(request):
         return JsonResponse({'logError':errors})
         
 
-def userInfo(request):
-    user = UserProfile.objects.filter(username=request.user.username)
-    postList = Post.objects.all().filter(owner=request.user.id).order_by("-likesNum")
-    return render(request,'userInfo.html',{'user':user[0],'postList':postList})
+def userInfo(request,username):
+    user = UserProfile.objects.filter(username=username).first()
+    postList = Post.objects.all().filter(owner=user.id).order_by("-likesNum")
+    return render(request,'userInfo.html',{'user':user,'postList':postList})
+
+def modifyInfo(request):
+    user = request.user
+    user.nickName = request.POST.get("nickName")
+    user.phone = request.POST.get("phone")
+    user.qq = request.POST.get("qq")
+    user.wechat = request.POST.get("wechat")
+    user.sex = request.POST.get("sex")
+    user.personalSignature = request.POST.get("personalSignature")
+    if request.FILES.get('headPortrait'):
+        user.headPortrait = request.FILES.get('headPortrait')
+    user.save()
+
+    return JsonResponse({})
 
 def elimateSession(request,name):
     request.session[name] = ""

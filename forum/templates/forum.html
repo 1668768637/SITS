@@ -7,7 +7,7 @@
 {% block right-main-container %}
 <div id="postList" class="col-xs-12 col-md-11">
     {% for post in postList %}
-    <div class="post row">
+    <div class="post row" id="{{post.id}}">
         <div class="postTitle">
             <a href="{% url 'findForumById' post.id %}"><h3>{{ post.title }}</h3></a>
             <p>{{ post.context}}</p>
@@ -29,7 +29,34 @@
             {% endfor %}
         </div>
         <div class="options">
-            <button class="likePost" type="button" id="{{post.id}}"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+            <div class="makeCommit">
+                <button class="makePostCommit">评论</button>
+            </div>
+            <div class="like">
+                <button class="likePost" type="button">
+                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                </button>
+                <p>{{post.likesNum}}</p>
+            </div>
+        </div>
+        <div class="inputPostCommit closeCommit">
+        </div>
+        <div class="commits">
+            {% for commit in post.postConmmits.all %}
+                <div class="commit">
+                    <div class="postCommit">
+                        <p>{{commit.userOwner.nickName}}:{{commit.context}}<button class="makeCommitCommit">评论</button></p>
+                    </div>
+                    <div class="commitCommits">
+                    {% for innerCommit in commit.commitConmmits.all %}
+                        <div class="commitCommit">
+                            <p>{{innerCommit.userOwner.nickName}}:{{innerCommit.context}}</p>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="clearfloat"></div>
         </div>
     </div>
     {% endfor %}

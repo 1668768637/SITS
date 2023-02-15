@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from forum.models import Post,PostImage
+from forum.models import Post,PostImage,PostLike,Commit
 from django.http import JsonResponse
 
 # Create your views here.
@@ -28,11 +28,7 @@ def findForumById(request,postId):
     post = Post.objects.all().filter(id=postId)
     return render(request,'postDetail.html',{'post':post[0],})
 
-def test(request):
-    post = Post(id=1)
-    postImg = PostImage(owner=post.id,photo="")
-    return 
-
+#新建帖子
 def newPost(request):
     if request.method == 'GET':
         if not request.user.is_authenticated:
@@ -64,10 +60,43 @@ def newPost(request):
                         img.save()
                     else:
                         errors.append(i.name+'上传失败')
-        return render(request,'newPost.html',{'postErrors':errors})
+        return JsonResponse({'postErrors':errors})
 
+#点赞帖子
 def likePost(request,postId):
+    if request.user.is_authenticated:
+        post = Post.objects.all().filter(id=postId).first()
+        if(not PostLike.objects.all().filter(user=request.user,post=post).exists()):
+            postLike = PostLike.objects.create(user=request.user,post=post)
+            postLike.save()
+            post.likesNum = post.likesNum+1
+            post.save()
+            return JsonResponse({'state':'success','id':postId})
+        else:
+            return JsonResponse({'state':'fail','error':'您已经点过赞了'})
+    else:
+        return JsonResponse({'state':'fail','error':'您还没有登录'})
+
+#删除帖子
+def delPost(request,postId):
     post = Post.objects.all().filter(id=postId).first()
-    post.likesNum = post.likesNum+1
-    post.save()
+    post.delete()
+    return JsonResponse({})
+
+#评论
+#需要在request中提供对应的owner，context和id
+def commit(request):
+    owner = request.POST.get("owner")
+    id = request.POST.get("id")
+    context = request.POST.get("context")
+    if owner == "post":
+        post = Post.objects.all().filter(id=id).first()
+        commit = Commit(postOwner = post,context=context)
+        commit.userOwner = request.user
+        commit.save()
+    else:
+        commitOwner = Commit.objects.all().filter(id=id).first()
+        commit = Commit(commitOwner = commitOwner,context=context)
+        commit.userOwner = request.user
+        commit.save()
     return JsonResponse({})

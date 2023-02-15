@@ -1,0 +1,84 @@
+@import url(../css/post.css);
+
+.clearfloat{
+	clear:both;
+	height:0;
+	font-size:1px;
+	line-height:0px;
+}
+
+
+#userInfo{
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 5%;
+    position: absolute;
+    width: 100%;
+}
+#baseInfo{
+    width: 100%;
+    padding-left: 10%;
+}
+
+#headPortrait{
+    float: left;
+    padding-left: 10%;
+    border: 0px;
+}
+
+#info{
+    float: left;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+
+#options #newPost{
+	font-size: 1vw;
+    float: right;
+}
+#options #home{
+	font-size: 1vw;
+    float: left;
+}
+#options button{
+    font-size: 1vw;
+    float: right;
+}
+
+#modifyDIv{
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 5%;
+    position: absolute;
+    z-index: -1;
+    visibility: hidden;
+    width: 100%;
+}
+
+#modify_headPortrait{
+    float: left;
+    padding-left: 10%;
+}
+
+#modify_info{
+    float: left;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+#modify_info p{
+    width: 4em;
+}
+
+#modify_options{
+    float: right;
+    width: 100%;
+}
+
+#modifyOpt_confirm{
+    float: right;
+}
+
+#modifyOpt_cancle{
+    float: right;
+}

@@ -5,15 +5,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>校园信息交流系统|{% block title %}{% endblock %}</title>
+    <title>校园论坛|{% block title %}{% endblock %}</title>
 
     <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/post.css' %}" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     {% block cssBlock %}{% endblock %}
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/myjs.js' %}"></script>   
-    <script src="{% static 'js/jqthumb.min.js' %}"></script> 
+    <script src="{% static 'js/base.js' %}"></script> 
+    <script src="{% static 'js/post.js' %}"></script>  
 
 </head>
 <body id="body">
@@ -52,9 +54,10 @@
          --><button id="userErrorMsgCloseBtn" type="button">x</button><!--
      --></div>
         {% endif %}
-        <p id="title">校园信息交流系统</p>
+        <p id="title">校园论坛</p>
         {% if request.session.nickName %}
-        <a href="{% url 'userInfo' %}" style="float: right; margin-right: 5%;">{{request.session.nickName}}</a>
+        <a href="{% url 'userInfo' request.user.username %}" style="float: right; margin-right: 5%;">{{request.user.nickName}}</a>
+        <p style="float: right;padding-left: 2px;padding-right: 2px;">|</p>
         <a href="{% url 'log' 'logout' %}" style="float: right;" id="logout">退出登录</a>
         {% else %}
         <div id="login-group">

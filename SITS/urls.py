@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
 
-from home.views import home,log,signUp,userInfo,elimateSession
+from home.views import *
 
 
 urlpatterns = [
@@ -27,7 +27,8 @@ urlpatterns = [
     path('forum/',include('forum.urls')),
     path('log/<str:logState>/',log,name='log'),
     path('signUp',signUp,name='signUp'),
-    path('userInfo',userInfo,name='userInfo'),
+    path('userInfo/<str:username>',userInfo,name='userInfo'),
+    path('modifyInfo',modifyInfo,name='modifyInfo'),
     path('elimateSession/<str:name>',elimateSession,name="elimateSession")
 ]
 
