@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post,PostImage#,Commit
+from .models import Post,PostImage,userCollection,Message#,Commit
 
 # Register your models here.
 class PostImgInline(admin.StackedInline):
@@ -15,3 +15,7 @@ class PostAdmin(admin.ModelAdmin):
     inlines = [PostImgInline]
 
 admin.site.register(Post, PostAdmin)
+
+admin.site.register(userCollection)
+
+admin.site.register(Message)

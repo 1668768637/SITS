@@ -20,13 +20,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ozl)0i!y7*mhsua+=ls%420953%5sm!@cc67n&6jtkguakdc#d'
+SECRET_KEY = 'pd34pc2l5nia2w7&02honut^t6+6y&x-oqj@s@g^c+*u&p!j+t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 APPEND_SLASH=False
+
 
 # Application definition
 
@@ -38,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
-    'forum'
+    'forum',
+    'user'
 ]
 
 MIDDLEWARE = [
@@ -49,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'myMiddleware.middleware.myMiddleware'
 ]
 
 ROOT_URLCONF = 'SITS.urls'
@@ -127,9 +130,8 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-
 #select the user model
-AUTH_USER_MODEL = 'home.UserProfile'
+AUTH_USER_MODEL = 'user.UserProfile'
 
 #set dafault timezone
 USE_TZ = False

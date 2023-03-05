@@ -18,6 +18,7 @@ from django.urls import path
 from django.urls.conf import include
 
 from home.views import *
+from user.views import *
 
 
 urlpatterns = [
@@ -27,9 +28,11 @@ urlpatterns = [
     path('forum/',include('forum.urls')),
     path('log/<str:logState>/',log,name='log'),
     path('signUp',signUp,name='signUp'),
+    path('forgetPassword/<str:username>',forgetPassword,name='forgetPassword'),
     path('userInfo/<str:username>',userInfo,name='userInfo'),
     path('modifyInfo',modifyInfo,name='modifyInfo'),
-    path('elimateSession/<str:name>',elimateSession,name="elimateSession")
+    path('delUser',delUser,name='delUser'),
+    path('readMessage/<int:msgId>',readMessage,name='readMessage')
 ]
 
 #加入media文件夹支持

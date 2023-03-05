@@ -8,7 +8,7 @@
     <title>校园论坛|{% block title %}{% endblock %}</title>
 
     <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
     <link href="{% static 'css/post.css' %}" rel="stylesheet">
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     {% block cssBlock %}{% endblock %}
@@ -30,7 +30,13 @@
         <div class="input_1"><input type="text" id="loginUser" placeholder="&nbsp;账号"></div>
         <div class="input_1"><input type="password"  id="loginPassword" placeholder="&nbsp;密码"></div>
         <div><p id="loginMsg"></p></div>
-        <div class="input_1"><input class="submit_1" type="button" id="login" value="登&nbsp;录"></div>
+        <div class="input_1">
+             <input class="submit_1" type="button" id="login" value="登&nbsp;录">
+        </div>
+        <div class="loginOptions">
+            <!-- <a href="#">忘记密码</a> -->
+            <button type="button" id="forgetPassword">忘记密码</button>
+        </div>
     </div>
     <div class="sign-up">
             <div class="input_1">
@@ -55,7 +61,7 @@
      --></div>
         {% endif %}
         <p id="title">校园论坛</p>
-        {% if request.session.nickName %}
+        {% if request.user.is_authenticated %}
         <a href="{% url 'userInfo' request.user.username %}" style="float: right; margin-right: 5%;">{{request.user.nickName}}</a>
         <p style="float: right;padding-left: 2px;padding-right: 2px;">|</p>
         <a href="{% url 'log' 'logout' %}" style="float: right;" id="logout">退出登录</a>
@@ -82,6 +88,35 @@
         <div id="right-main-container" class="col-xs-10 col-md-10 container">
             {% block right-main-container %}
             {% endblock %}
+            {% if pageData %}
+                <div class="paging col-xs-12 col-md-12">
+                    <ul id="pages" class="pagination pagination-sm pagination-xs">
+                        {% if pageData.first %}
+                        <li><a href="?page=1">1</a></li>
+                        {% endif %}
+                        {% if pageData.left %}
+                        {% if pageData.left_has_more %}
+                        <li><span>...</span></li>
+                        {% endif %}
+                        {% for i in pageData.left %}
+                        <li><a href="?page={{i}}">{{i}}</a></li>
+                        {% endfor %}
+                        {% endif %}
+                        <li class="active"><a href="?page={{pageData.page}}">{{pageData.page}}</a></li>
+                        {% if pageData.right %}
+                        {% for i in pageData.right %}
+                        <li><a href="?page={{i}}">{{i}}</a></li>
+                        {% endfor %}
+                        {% if pageData.right_has_more %}
+                        <li><span>...</span></li>
+                        {% endif %}
+                        {% endif %}
+                        {% if pageData.last %}
+                        <li><a href="?page={{pageData.total_pages}}">{{pageData.total_pages}}</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            {% endif %}
         </div>
         <div class="clearfloat"></div>
     </div>

@@ -20,55 +20,18 @@
     padding-left: 10%;
 }
 
-#headPortrait{
-    float: left;
-    padding-left: 10%;
-    border: 0px;
-}
-
-#info{
-    float: left;
-    padding-left: 20%;
-    padding-right: 20%;
-}
 
 
-#options #newPost{
-	font-size: 1vw;
-    float: right;
-}
-#options #home{
-	font-size: 1vw;
-    float: left;
-}
-#options button{
-    font-size: 1vw;
-    float: right;
-}
 
-#modifyDIv{
+#modifyDiv{
     padding-left: 10%;
     padding-right: 10%;
     padding-top: 5%;
     position: absolute;
     z-index: -1;
-    visibility: hidden;
     width: 100%;
 }
 
-#modify_headPortrait{
-    float: left;
-    padding-left: 10%;
-}
-
-#modify_info{
-    float: left;
-    padding-left: 20%;
-    padding-right: 20%;
-}
-#modify_info p{
-    width: 4em;
-}
 
 #modify_options{
     float: right;
@@ -81,4 +44,266 @@
 
 #modifyOpt_cancle{
     float: right;
+}
+
+#userPosts{
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+}
+
+#container{
+    position: relative;
+}
+
+
+#userCollections{
+    position: absolute;
+    width: 100%;
+}
+
+#makePost{
+    position: absolute;
+    width: 100%;
+}
+
+#myMessages{
+    position: absolute;
+    width: 100%;
+}
+
+.open{
+    visibility: visible;
+    z-index: 99;
+}
+
+.close{
+    visibility: hidden;
+    z-index: -1;
+}
+
+.collotionOpt{
+    float: right;
+    width: 100%;
+}
+
+
+.makePost{
+    position: absolute;
+    width: 100%;
+}
+
+#delUser p{
+    color: red;
+}
+
+/* 小屏幕设备 */
+@media only screen and (max-width: 990px) {
+    #menu{
+        padding: 0px 0px;
+    }
+
+    #menuElems{
+        min-width: 0px;
+        left: -30px;
+    }
+
+    #options #home{
+        font-size: 15px;
+        float: left;
+    }
+    #userOptions{
+        float: right;
+    }
+    #info{
+        float: left;
+        padding-right: 20%;
+    }
+
+    .delCollection{
+        width: 35px;
+        height: 35px;
+        border: 1px solid  #5d5d5d;
+        border-radius: 50%;
+        float: right;
+        padding-top: 0px;
+    }
+
+    input{
+        width: 100%;
+    }
+
+    #modify_headPortrait{
+        float: left;
+    }
+
+    #modify_info{
+        float: left;
+    }
+
+    #modifyForm{
+        width: 100%;
+    }
+
+    #headPortrait{
+        float: left;
+        padding-left: 10%;
+        border: 0px;
+        white-space: pre-wrap;
+    }
+
+    #postForm div{
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+    #postForm textarea{
+        width: 100%;
+    }
+    #newPostDiv{
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+
+    .msg{
+        font-size: 15px;
+        border: 2px solid #468;
+        border-radius: 5px;
+    }
+
+    .notRead{
+        width: 10px;
+        height: 10px;
+        float: left;
+        margin-top: 9px;
+        margin-right: 5px;
+        background-color: red;
+        -moz-border-radius: 50px;
+        -webkit-border-radius: 50px;
+        border-radius: 50px;
+    }
+    .readed{
+        width: 10px;
+        height: 10px;
+        float: left;
+        margin-top: 9px;
+        margin-right: 5px;
+        background-color: green;
+        -moz-border-radius: 50px;
+        -webkit-border-radius: 50px;
+        border-radius: 50px;
+    }
+}
+
+/* 大屏幕设备 */
+@media only screen and (min-width: 990px) and (max-width: 1920px){
+    #options #newPost{
+        font-size: 1vw;
+        float: right;
+    }
+    #options #myCollections{
+        font-size: 1vw;
+        float: right;
+    }
+    #options #myResponses{
+        font-size: 1vw;
+        float: right;
+    }
+    #options #myPosts{
+        font-size: 1vw;
+        float: right;
+    }
+    #options #home{
+        font-size: 1vw;
+        float: left;
+    }
+    #delUser{
+        float: right;
+        font-size: 1vw;
+        color: red;
+    }
+    #options #modify{
+        font-size: 1vw;
+        float: right;
+    }
+
+    #info{
+        float: left;
+        padding-left: 20%;
+        padding-right: 20%;
+    }
+
+    .delCollection{
+        width: 40px;
+        height: 40px;
+        border: 1px solid  #5d5d5d;
+        border-radius: 50%;
+        float: right;
+    }
+
+    #modify_headPortrait{
+        float: left;
+        padding-left: 10%;
+    }
+
+    #modify_info{
+        float: left;
+        padding-left: 20%;
+        padding-right: 20%;
+    }
+    #modify_info p{
+        width: 4em;
+    }
+
+    #headPortrait{
+        float: left;
+        padding-left: 10%;
+        border: 0px;
+    }
+
+    #postForm div{
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+    #newPostDiv{
+        padding-left: 10%;
+        padding-right: 10%;
+        font-size: 1vw;
+    }
+    #postForm textarea{
+        width: 80%;
+    }
+    #postForm{
+        font-size: 1vw;
+    }
+
+    .msg{
+        font-size: 1vw;
+        padding-left: 10%;
+        border: 2px solid #468;
+        border-radius: 5px;
+    }
+
+    .notRead{
+        width: 10px;
+        height: 10px;
+        float: left;
+        margin-top: 9px;
+        margin-right: 5px;
+        background-color: red;
+        -moz-border-radius: 50px;
+        -webkit-border-radius: 50px;
+        border-radius: 50px;
+    }
+    .readed{
+        width: 10px;
+        height: 10px;
+        float: left;
+        margin-top: 9px;
+        margin-right: 5px;
+        background-color: green;
+        -moz-border-radius: 50px;
+        -webkit-border-radius: 50px;
+        border-radius: 50px;
+    }
 }

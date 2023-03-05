@@ -1,0 +1,306 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'css/userInfo.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/post.css' %}" rel="stylesheet">
+    
+    <script src="{% static 'js/userInfo.js' %}"></script> 
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery.form.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/post.js' %}"></script>
+    <title>个人信息</title>
+</head>
+<body>
+    {% if user %}
+    <div id="userInfo">
+        <div id="baseInfo" class="row">
+            <div id="headPortrait" class="thumbnail col-xs-5 col-md-5">
+                {% if user.headPortrait %}
+                <img src="{{user.headPortrait.url}}" alt="暂无头像">
+                {% else %}
+                <img src="{% static 'img/defaultHP.jpg' %}" alt="暂无头像">
+                {% endif %}
+            </div>
+            <div id="info" class="col-xs-7 col-md-7">
+                <div><nobr>账号:</nobr><nobr class="test">{{user.username}}</nobr></div>
+                <div><nobr>昵称:</nobr><nobr class="test">{{user.nickName}}</nobr></div>
+                <div><nobr>性别:</nobr><nobr class="test">{{user.sex}}</nobr></div>
+                <div><nobr>个性签名:</nobr><nobr class="test">{{user.personalSignature}}</nobr></div>
+                <div><nobr>注册日期:</nobr><nobr class="test">{{user.create_date.year}}-{{user.create_date.month}}-{{user.create_date.day}}</nobr></div>
+                <div><nobr>邮箱:</nobr><nobr class="test">{{user.email}}</nobr></div>
+                <div><nobr>电话:</nobr><nobr class="test">{{user.phone}}</nobr></div>
+                <div><nobr>QQ:</nobr><nobr class="test">{{user.qq}}</nobr></div>
+                <div><nobr>微信:</nobr><nobr class="test">{{user.wechat}}</nobr></div>
+            </div>
+        </div>
+        <div id="options">
+            <a href="{% url 'home' %}"><button id="home" type="button">首页</button></a>
+            {% if request.user == user %}
+                {% if device == "pc" %}
+                <button type="button" onclick="delUser()" id="delUser">注销账号</button>
+                <button type="button" onclick="modifyInfo()" id="modify">编辑个人资料</button>
+                <button id="newPost" type="button"  onclick="makePost()">新建帖子</button>
+                <button type="button" onclick="myCollections()" id="myCollections">我的收藏</button>
+                <button type="button" onclick="myResponse()" id="myResponses">回复我的</button>
+                <button type="button" onclick="posts()" id="myPosts">帖子列表</button>
+                {% endif %}
+                {% if device == "mobile" %}
+                <ul class="nav nav-pills" id="userOptions">
+                    <li role="presentation" class="dropdown">
+                      <a id="menu" class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        其他操作
+                        <span class="caret"></span>
+                      </a>
+                      <ul class="dropdown-menu" id="menuElems">
+                        <li><a onclick="modifyInfo()" id="modify">编辑个人资料</a></li>
+                        <li><a onclick="makePost()">新建帖子</a></li>
+                        <li><a onclick="myCollections()" id="myCollections">我的收藏</a></li>
+                        <li><a onclick="myResponse()" id="myResponses">回复我的</a></li>
+                        <li><a onclick="posts()" id="myPosts">帖子列表</a></li>
+                        <li><a onclick="delUser()" id="delUser"><p>注销账号</p></a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                {% endif %}
+            {% endif %}
+            <div class="clearfloat"></div>
+        </div>
+        <div id="container">
+            <div id="userPosts" class="open">
+                <div id="postList" class="col-xs-12 col-md-12">
+                    {% for post in postList %}
+                    <div class="post row"  id="{{post.id}}">
+                        <div class="postTitle">
+                            <a href="{% url 'findForumById' post.id %}"><h3>{{ post.title }}</h3></a>
+                        </div>
+                        <div class="postContext">
+                            <p>{{ post.context}}</p>
+                        </div>
+                        <div class="imgList">
+                            {% for img in post.postImages.all %}
+                                {% if forloop.counter0 < 4 %}
+                                    {% if forloop.counter0 == 3 %}
+                                    <a href="{% url 'findForumById' post.id %}" class="thumbnail col-xs-6 col-md-3" style="text-align: center;">
+                                        <div class="bg">
+                                            <p>。。。</p>
+                                        </div>
+                                        <img src="{{img.photo.url}}"  class="lastImg">
+                                    </a>
+                                    {% else %}
+                                    <img class="thumbnail col-xs-6 col-md-3" src="{{img.photo.url}}">
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="options">
+                            <div class="makeCommit">
+                                <button class="makePostCommit">评论</button>
+                            </div>
+                            {% if request.user == user%}
+                            <div class="delete">
+                                <button class="deletePost" type="button">删除</button>
+                            </div>
+                            {% endif %}
+                            <div class="like">
+                                <button class="likePost" type="button">
+                                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                                </button>
+                                <p>{{post.likesNum}}</p>
+                            </div>
+                        </div>
+                        <div class="inputPostCommit closeCommit">
+                        </div>
+                        <div class="commits">
+                            {% for commit in post.postConmmits.all %}
+                                <div class="commit" data-id="{{commit.id}}">
+                                    <div class="postCommit">
+                                        <p>{{commit.userOwner.nickName}}:{{commit.context}}<button class="makeCommitCommit">评论</button></p>
+                                    </div>
+                                    <div class="inputCommitCommit closeCommit">
+                                    </div>
+                                    <div class="commitCommits">
+                                    {% for innerCommit in commit.commitConmmits.all %}
+                                        <div class="commitCommit">
+                                            <p>{{innerCommit.userOwner.nickName}}:{{innerCommit.context}}</p>
+                                        </div>
+                                    {% endfor %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <div class="clearfloat"></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="clearfloat"></div>
+            </div>
+            <div id="userCollections" class="close">
+                {% for collection in collections %}
+                    <div class="post row"  id="{{collection.postOwner.id}}">
+                        <div class="collotionOpt">
+                            <button type="button" class="delCollection" data-id="{{collection.id}}" onclick="delCollection()">X</button>
+                        </div>
+                        <div class="postTitle">
+                            <a href="{% url 'findForumById' collection.postOwner.id %}"><h3>{{ collection.postOwner.title }}</h3></a>
+                        </div>
+                        <div class="postContext">
+                            <p>{{ collection.postOwner.context}}</p>
+                        </div>
+                        <div class="imgList">
+                            {% for img in collection.postOwner.postImages.all %}
+                                {% if forloop.counter0 < 4 %}
+                                    {% if forloop.counter0 == 3 %}
+                                    <a href="{% url 'findForumById' collection.postOwner.id %}" class="thumbnail col-xs-6 col-md-3" style="text-align: center;">
+                                        <div class="bg">
+                                            <p>。。。</p>
+                                        </div>
+                                        <img src="{{img.photo.url}}"  class="lastImg">
+                                    </a>
+                                    {% else %}
+                                    <img class="thumbnail col-xs-6 col-md-3" src="{{img.photo.url}}">
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="options">
+                            <div class="makeCommit">
+                                <button class="makePostCommit">评论</button>
+                            </div>
+                            <div class="like">
+                                <button class="likePost" type="button">
+                                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                                </button>
+                                <p>{{collection.postOwner.likesNum}}</p>
+                            </div>
+                        </div>
+                        <div class="inputPostCommit closeCommit">
+                        </div>
+                        <div class="commits">
+                            {% for commit in collection.postOwner.postConmmits.all %}
+                                <div class="commit" data-id="{{commit.id}}">
+                                    <div class="postCommit">
+                                        <p>{{commit.userOwner.nickName}}:{{commit.context}}<button class="makeCommitCommit">评论</button></p>
+                                    </div>
+                                    <div class="inputCommitCommit closeCommit">
+                                    </div>
+                                    <div class="commitCommits">
+                                    {% for innerCommit in commit.commitConmmits.all %}
+                                        <div class="commitCommit">
+                                            <p>{{innerCommit.userOwner.nickName}}:{{innerCommit.context}}</p>
+                                        </div>
+                                    {% endfor %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <div class="clearfloat"></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+            </div>
+            <div id="makePost" class="close">
+                <div class="postDesign">
+                    <form id="postForm" action="/forum/newPost" method="post" enctype="multipart/form-data">
+                        <div>
+                            <nobr>
+                                标题
+                                <input type="text" name="title">
+                            </nobr>
+                            
+                        </div>
+                        <div>
+                            <nobr>
+                                内容
+                                <textarea name="context" id="" cols="" rows="5" style="vertical-align:top;outline:none;"></textarea>
+                            </nobr>
+                        </div>
+                        <div>
+                            <nobr>
+                                类型
+                                <select name="postType" id="">
+                                    <option value="lostAndFound">失物招领</option>
+                                    <option value="anecdoteForum">轶事趣闻</option>
+                                    <option value="driftBottle">漂流瓶</option>
+                                    <option value="eventInformation">活动信息</option>
+                                    <option value="loveWall">表白墙</option>
+                                </select>
+                            </nobr>
+                        </div>
+                        <div>
+                            <nobr> 
+                                图片
+                                <input type="file" multiple="multiple" accept="image/*" name="postImages">
+                            </nobr>
+                        </div>
+                    </form>
+                    <div id="newPostDiv">
+                        <button id="submit" onclick="newPost()">新建帖子</button>
+                    </div>
+                </div>
+            </div>
+            <div id="myMessages" class="close">
+                {% if msgs %}
+                    {% for msg in msgs %}
+                        <div class="msg">
+                            {% if msg.hasReaded %}
+                            <div class="readed"></div>
+                            {% else %}
+                            <div class="notRead"></div>
+                            {% endif %}
+                            <a href="{% url 'userInfo' msg.poster.username %}">{{msg.poster}}</a>
+                            {{msg.context}}
+                            <a href="{% url 'readMessage' msg.id %}">{{msg.post.title}}</a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="clearfloat"></div>  
+        </div> 
+    </div>
+
+    <div id="modifyDiv" class="close">
+        <form id="modifyForm" action="/modifyInfo" method="post" enctype="multipart/form-data">
+            <div id="modify_headPortrait" class="col-xs-5 col-md-5">
+                <div class="thumbnail">
+                    {% if user.headPortrait %}
+                    <img src="{{user.headPortrait.url}}" alt="暂无头像">
+                    {% else %}
+                    <img src="{% static 'img/defaultHP.jpg' %}" alt="暂无头像">
+                    {% endif %}
+                </div>
+                <input id="headPortrait" name="headPortrait" type="file" accept="image/*">
+            </div>
+            <div id="modify_info" class="col-xs-7 col-md-7">
+                <p><nobr>昵称:</nobr><input name="nickName" type="text" value="{{user.nickName}}"></p>
+                <p><nobr>性别:</nobr>
+                    <select name="sex" id="">
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                    </select>
+                </p>
+                <p><nobr>个性签名:</nobr><input name="personalSignature"type="text" value="{{user.personalSignature}}"></p>
+                <p><nobr>邮箱:</nobr><input name="email" type="text" value="{{user.email}}"></p>
+                <p><nobr>电话:</nobr><input name="phone" type="text" value="{{user.phone}}"></p>
+                <p><nobr>QQ:</nobr><input name="qq" type="text" value="{{user.qq}}"></p>
+                <p><nobr>微信:</nobr><input name="wechat" type="text" value="{{user.wechat}}"></p>
+                <p><nobr>密码(为空就不修改):</nobr><input name="password" type="password" value=""></p>
+            </div>
+        </form>
+        <div id="modify_options">
+            <div id="modifyOpt_confirm"><button type="button" onclick="modify()">确定修改</button></div>
+            <div id="modifyOpt_cancle"><button type="button" onclick="cancleModify()">取消修改</button></div>
+        </div>
+    </div>
+    {% else %}
+    <p>该用户不存在</p>
+    {% endif %}
+
+</body>
+
+</html>
+

@@ -12,13 +12,6 @@
 .post div h3{
 	text-align: center;
 }
-.post .postTitle p{
-	text-indent: 2em;
-	font-size: 20px;
-	word-break: break-all;
-	word-wrap: break-word;
-	
-}
 
 .imgList{
 	width: 100%;
@@ -48,11 +41,6 @@
 	float: right;
 	padding-right: 2px;
 }
-.like p{
-	text-align: center;
-	font-size: 2vw;
-}
-
 
 .lastImg{
 	opacity: 0.8;
@@ -87,17 +75,16 @@
 	background-color: yellow;
 }
 
-.delete{
-    float: right;
-    padding-right: 2px;
-    font-size: 1.5vw;
-}
-
 .makeCommit{
     float: right;
     padding-right: 2px;
     font-size: 1.5vw;
 }
+
+.makeCommitCommit{
+	margin-left: 5px;
+}
+
 
 .divMakeCommit{
 	width: 100%;
@@ -106,18 +93,88 @@
 
 /* 小屏幕设备 */
 @media only screen and (max-width: 990px) {
+	#title{
+		font-size: 50px;
+	}
+
+	.postAuthor a p{
+		font-size: 15px;
+		text-align: right;
+	}
+
 	.postCommit p{
 		font-size: 15px;
 	}
 	
 	.commitCommit p{
 		font-size: 12px;
-		padding-left: 2em;
+	}
+
+	.postCommit .makeCommitCommit{
+		font-size: 10px;
+	}
+	.makePostCommit{
+		font-size: 10px;
+	}
+	.makeCommitCommit{
+		font-size: 10px;
+	}
+
+	.like .likePost{
+		font-size: 12px;
+	}
+	.like p{
+		text-align: center;
+		font-size: 10px;
+	}
+
+	.inputPostCommit input{
+		height: 20px;
+		font-size: 12px;
+	}
+	.inputPostCommit button{
+		font-size: 12px;
+		height: 20px;
+	}
+
+	.inputCommitCommit input{
+		height: 20px;
+		font-size: 12px;
+	}
+	.inputCommitCommit button{
+		font-size: 12px;
+		height: 20px;
+	}
+
+	.post .postContext p{
+		font-size: 15px;
+		word-break: break-all;
+		word-wrap: break-word;
+		white-space: pre-wrap;
+		max-height: 200px;
+		overflow: hidden;
+	}
+
+	.delete .deletePost{
+		float: right;
+		font-size: 10px;
+	}
+	.postCommit .deleteCommit{
+		font-size: 10px;
+	}
+
+	.collect{
+		float: right;
+		font-size: 10px;
 	}
 }
 
 /* 大屏幕设备 */
 @media only screen and (min-width: 990px) and (max-width: 1920px){
+	.postAuthor a p{
+		text-align: right;
+	}
+
 	.postCommit p{
 		font-size: 25px;
 	}
@@ -125,5 +182,65 @@
 	.commitCommit p{
 		font-size: 20px;
 		padding-left: 1em;
+	}
+
+	.postCommit .makeCommitCommit{
+		visibility: hidden;
+		font-size: 20px;
+	}
+	.postCommit .deleteCommit{
+		visibility: hidden;
+		font-size: 20px;
+	}
+	.postCommit:hover .makeCommitCommit{
+		visibility: visible;
+	}
+	.postCommit:hover .deleteCommit{
+		visibility: visible;
+	}
+
+	.commitCommit .deleteCommit{
+		visibility: hidden;
+		font-size: 20px;
+	}
+	.commitCommit:hover .deleteCommit{
+		visibility: visible;
+	}
+
+	.makePostCommit{
+		font-size: 25px;
+	}
+
+	.like .likePost{
+		font-size: 35px;
+	}
+	.like p{
+		text-align: center;
+		font-size: 25px;
+	}
+
+	.delete{
+		float: right;
+		padding-right: 2px;
+		font-size: 25px;
+	}
+
+	.inputPostCommit input{
+		
+	}
+	.inputPostCommit button{
+	}
+
+	.post .postContext p{
+		font-size: 20px;
+		word-break: break-all;
+		word-wrap: break-word;
+		white-space: pre-wrap;
+		max-height: 200px;
+		overflow: hidden;
+	}
+
+	.collect{
+		float: right;
 	}
 }

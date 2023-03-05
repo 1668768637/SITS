@@ -1,6 +1,8 @@
 from django.db import models
-from home.models import UserProfile
+from user.models import UserProfile
 from django.utils import timezone
+from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
 # Create your models here.
 
 class Post(models.Model):
@@ -42,10 +44,11 @@ class Post(models.Model):
         null=False,
         default=0
     )
+    create_date = models.DateTimeField(
+        auto_now_add=True, blank=True, null=True)
 
 
     class Meta:
-        db_table = "Posts"
         verbose_name = 'post'
         verbose_name_plural = "post"
 
@@ -85,6 +88,8 @@ class Commit(models.Model):
                                 max_length=500,
                                 default="",
                                 null=False)
+    create_date = models.DateTimeField(
+        auto_now_add=True, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Commit'
@@ -106,7 +111,60 @@ class PostLike(models.Model):
         null=False,
         on_delete=models.CASCADE
     )
+    create_date = models.DateTimeField(
+        auto_now_add=True, blank=True, null=True)
 
     class Meta:
         verbose_name = 'postLike'
         verbose_name_plural = 'postLike'
+
+
+@receiver(pre_delete, sender=Post)
+def delete_image(sender, instance, **kwargs):
+    # Pass false so FileField doesn't save the model.
+    for img in instance.postImages.all():
+        img.photo.delete(False)
+
+
+
+class userCollection(models.Model):
+    userOwner = models.ForeignKey(UserProfile,
+                            related_name="userowner",
+                            verbose_name='用户',
+                            null=False,
+                            on_delete=models.CASCADE)
+    postOwner = models.ForeignKey(Post,
+                            related_name="postowner",
+                            verbose_name='帖子',
+                            null=False,
+                            on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'userCollection'
+        verbose_name_plural = "userCollection"
+
+
+
+class Message(models.Model):
+    poster = models.ForeignKey(UserProfile,
+                               on_delete=models.DO_NOTHING,
+                               related_name="poster",
+                               null=False)
+    receiver = models.ForeignKey(UserProfile,
+                                 on_delete=models.DO_NOTHING,
+                                 related_name="receiver",
+                                 null=False)
+    context = models.TextField(verbose_name="消息内容")
+    post = models.ForeignKey(Post,
+                               null=False,
+                               on_delete=models.CASCADE,
+                               related_name="postId")
+    hasReaded = models.BooleanField(verbose_name="是否查看",
+                                    null=False,
+                                    default=False)
+    create_date = models.DateTimeField(
+        auto_now_add=True, blank=True, null=True)
+    
+    def read(self):
+        self.hasReaded = True
+        self.save()

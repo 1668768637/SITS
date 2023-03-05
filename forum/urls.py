@@ -21,7 +21,10 @@ urlpatterns = [
     path('newPost',newPost,name='newPost'),
     path('delPost/<int:postId>',delPost,name='delPost'),
     path('commit',commit,name='commit'),
+    path('delCommit/<int:id>',delCommit,name='delCommit'),
     path('likePost/<int:postId>',likePost,name="likePost"),
     path('<str:postType>',forum,name='forum'),
-    path('findForumById/<int:postId>',findForumById,name='findForumById'), 
+    path('findForumById/<int:postId>',findForumById,name='findForumById'),
+    path('makeCollection/<int:postId>',makeCollection,name='makeCollection'),
+    path('delCollection/<int:collectionId>',delCollection,name='delCollection'),
 ]

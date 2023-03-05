@@ -10,6 +10,16 @@
     <div class="post row" id="{{post.id}}">
         <div class="postTitle">
             <a href="{% url 'findForumById' post.id %}"><h3>{{ post.title }}</h3></a>
+        </div>
+        <div class="postAuthor">
+            <a href="{% url 'userInfo' post.owner.username %}">
+                <p>{{post.owner.nickName}}&nbsp;
+                {{post.create_date.year}}-{{post.create_date.mouth}}-{{post.create_date.day}}&nbsp;
+                {{post.create_date.hour}}:{{post.create_date.minute}}
+                </p>
+            </a>
+        </div>
+        <div class="postContext">
             <p>{{ post.context}}</p>
         </div>
         <div class="imgList">
@@ -29,6 +39,11 @@
             {% endfor %}
         </div>
         <div class="options">
+            <div class="collect">
+                {% if request.user.is_authenticated %}
+                <button data-id="{{post.id}}" class="makeCollection">收藏</button>
+                {% endif %}
+            </div>
             <div class="makeCommit">
                 <button class="makePostCommit">评论</button>
             </div>
@@ -43,14 +58,27 @@
         </div>
         <div class="commits">
             {% for commit in post.postConmmits.all %}
-                <div class="commit">
-                    <div class="postCommit">
-                        <p>{{commit.userOwner.nickName}}:{{commit.context}}<button class="makeCommitCommit">评论</button></p>
+                <div class="commit" data-id="{{commit.id}}">
+                    <div class="postCommit" data-id="{{commit.id}}">
+                        <p>
+                            <a href="{% url 'userInfo' commit.userOwner.username %}">{{commit.userOwner.nickName}}</a>:{{commit.context}}
+                            <button class="makeCommitCommit">评论</button>
+                            {% if request.user == commit.userOwner %}
+                            <button class="deleteCommit">删除</button>
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="inputCommitCommit closeCommit">
                     </div>
                     <div class="commitCommits">
                     {% for innerCommit in commit.commitConmmits.all %}
-                        <div class="commitCommit">
-                            <p>{{innerCommit.userOwner.nickName}}:{{innerCommit.context}}</p>
+                        <div class="commitCommit" data-id="{{innerCommit.id}}">
+                            <p>
+                                <a href="{% url 'userInfo' innerCommit.userOwner.username %}">{{innerCommit.userOwner.nickName}}</a>:{{innerCommit.context}}
+                                {% if request.user == innerCommit.userOwner %}
+                                <button class="deleteCommit">删除</button>
+                                {% endif %}
+                            </p>
                         </div>
                     {% endfor %}
                     </div>
@@ -61,6 +89,36 @@
     </div>
     {% endfor %}
 </div>
+{% if pageData %}
+    <div class="paging">
+        <ul id="pages" class="pagination pagination-sm pagination-xs">
+            {% if pageData.first %}
+            <li><a href="?page=1">1</a></li>
+            {% endif %}
+            {% if pageData.left %}
+            {% if pageData.left_has_more %}
+            <li><span>...</span></li>
+            {% endif %}
+            {% for i in pageData.left %}
+            <li><a href="?page={{i}}">{{i}}</a></li>
+            {% endfor %}
+            {% endif %}
+            <li class="active"><a href="?page={{pageData.page}}">{{pageData.page}}</a></li>
+            {% if pageData.right %}
+            {% for i in pageData.right %}
+            <li><a href="?page={{i}}">{{i}}</a></li>
+            {% endfor %}
+            {% if pageData.right_has_more %}
+            <li><span>...</span></li>
+            {% endif %}
+            {% endif %}
+            {% if pageData.last %}
+            <li><a href="?page={{pageData.total_pages}}">{{pageData.total_pages}}</a></li>
+            {% endif %}
+        </ul>
+    </div>
+{% endif %}
+
 <div class="col-xs-0 col-md-1">
 </div>
 

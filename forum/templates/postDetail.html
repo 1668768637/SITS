@@ -11,13 +11,75 @@
 
 
 {% block right-main-container %}
-    <div class="row-md-6">
-        <h3>{{ post.title }}</h3>
-        <p>{{ post.context}}</p>
+<div class="post row col-xs-12 col-md-11" id="{{post.id}}">
+    <div class="postTitle">
+        <a href="{% url 'findForumById' post.id %}"><h3>{{ post.title }}</h3></a>
     </div>
-    <div>
+    <div class="postAuthor">
+        <a href="{% url 'userInfo' post.owner.username %}">
+            <p>{{post.owner.nickName}}&nbsp;
+            {{post.create_date.year}}-{{post.create_date.mouth}}-{{post.create_date.day}}&nbsp;
+            {{post.create_date.hour}}:{{post.create_date.minute}}
+            </p>
+        </a>
+    </div>
+    <div class="postContext">
+        <p style="max-height: fit-content;">{{ post.context}}</p>
+    </div>
+    <div class="imgList">
         {% for img in post.postImages.all %}
-        <img class="img-responsive model-img thumbnail" width="100px" height="200px" src="{{img.photo.url}}">
+            <img class="thumbnail col-xs-6 col-md-3" src="{{img.photo.url}}">
         {% endfor %}
     </div>
+    <div class="options">
+        <div class="collect">
+            {% if request.user.is_authenticated %}
+            <button data-id="{{post.id}}" class="makeCollection">收藏</button>
+            {% endif %}
+        </div>
+        <div class="makeCommit">
+            <button class="makePostCommit">评论</button>
+        </div>
+        <div class="like">
+            <button class="likePost" type="button">
+                <span class="glyphicon glyphicon-thumbs-up"></span>
+            </button>
+            <p>{{post.likesNum}}</p>
+        </div>
+    </div>
+    <div class="inputPostCommit closeCommit">
+    </div>
+    <div class="commits">
+        {% for commit in post.postConmmits.all %}
+            <div class="commit" data-id="{{commit.id}}">
+                <div class="postCommit" data-id="{{commit.id}}">
+                    <p>
+                        <a href="{% url 'userInfo' commit.userOwner.username %}">{{commit.userOwner.nickName}}</a>:{{commit.context}}
+                        <button class="makeCommitCommit">评论</button>
+                        {% if request.user == commit.userOwner %}
+                        <button class="deleteCommit">删除</button>
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="inputCommitCommit closeCommit">
+                </div>
+                <div class="commitCommits">
+                {% for innerCommit in commit.commitConmmits.all %}
+                    <div class="commitCommit" data-id="{{innerCommit.id}}">
+                        <p>
+                            <a href="{% url 'userInfo' innerCommit.userOwner.username %}">{{innerCommit.userOwner.nickName}}</a>:{{innerCommit.context}}
+                            {% if request.user == innerCommit.userOwner %}
+                            <button class="deleteCommit">删除</button>
+                            {% endif %}
+                        </p>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+        <div class="clearfloat"></div>
+    </div>
+</div>
+<div class="col-xs-0 col-md-1">
+</div>
 {% endblock %}
