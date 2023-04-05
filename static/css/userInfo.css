@@ -1,4 +1,8 @@
 @import url(../css/post.css);
+@font-face {
+	font-family: 古风字体;
+	src: url(../fonts/古风隶书字体.ttf);
+};
 
 .clearfloat{
 	clear:both;
@@ -11,13 +15,11 @@
 #userInfo{
     padding-left: 10%;
     padding-right: 10%;
-    padding-top: 5%;
     position: absolute;
     width: 100%;
 }
 #baseInfo{
     width: 100%;
-    padding-left: 10%;
 }
 
 
@@ -48,8 +50,7 @@
 
 #userPosts{
     position: absolute;
-    width: 100%;
-    z-index: 1;
+    width: 80%;
 }
 
 #container{
@@ -96,6 +97,9 @@
 #delUser p{
     color: red;
 }
+#delUser{
+    color: red;
+}
 
 /* 小屏幕设备 */
 @media only screen and (max-width: 990px) {
@@ -115,9 +119,12 @@
     #userOptions{
         float: right;
     }
+    
     #info{
         float: left;
-        padding-right: 20%;
+    }
+    #info nobr{
+        font-size: 4vw;
     }
 
     .delCollection{
@@ -136,6 +143,11 @@
     #modify_headPortrait{
         float: left;
     }
+    #modify_headPortrait img{
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+    }
 
     #modify_info{
         float: left;
@@ -148,16 +160,27 @@
     #headPortrait{
         float: left;
         padding-left: 10%;
+        padding-bottom: 0px;
+        margin: 0px;
         border: 0px;
         white-space: pre-wrap;
+        background-color: rgba(0, 0, 0, 0);
+    }
+    #headPortrait img{
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
     }
 
     #postForm div{
         padding-left: 5%;
         padding-right: 5%;
     }
+    #postForm input{
+        width: auto;
+    }
     #postForm textarea{
-        width: 100%;
+        width: auto;
     }
     #newPostDiv{
         padding-left: 5%;
@@ -217,11 +240,6 @@
         font-size: 1vw;
         float: left;
     }
-    #delUser{
-        float: right;
-        font-size: 1vw;
-        color: red;
-    }
     #options #modify{
         font-size: 1vw;
         float: right;
@@ -229,8 +247,9 @@
 
     #info{
         float: left;
-        padding-left: 20%;
+        font-size: 1vw;
         padding-right: 20%;
+        height: 300px;
     }
 
     .delCollection{
@@ -259,6 +278,12 @@
         float: left;
         padding-left: 10%;
         border: 0px;
+        background-color: rgba(0, 0, 0, 0);
+    }
+    #headPortrait img{
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
     }
 
     #postForm div{

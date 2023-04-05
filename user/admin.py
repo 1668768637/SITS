@@ -3,6 +3,9 @@ from django.contrib import admin
 from django import forms
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 from .models import UserProfile
 
@@ -41,18 +44,34 @@ class UserChangeForm(forms.ModelForm):
     the user, but replaces the password field with admin's
     password hash display field.
     """
-    password = ReadOnlyPasswordHashField()
+    password = forms.CharField(label='Password', widget=forms.PasswordInput)
 
     class Meta:
         model = UserProfile
-        fields = ('username', 'password','sex',
-                  'email', 'is_active', 'is_admin')
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password'].help_text = "Enter a raw password or a valid password hash."
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
         # This is done here, rather than on the field, because the
         # field does not have access to the initial value
-        return self.initial["password"]
+        password = self.cleaned_data.get('password')
+        if password:
+            return password
+        else:
+            return self.initial["password"]
+        
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        password = self.cleaned_data["password"]
+        if password:
+            user.set_password(password) # 使用django内置的密码哈希方法将密码进行加密
+        if commit:
+            user.save()
+        return user
 
 
 class UserAdmin(BaseUserAdmin):

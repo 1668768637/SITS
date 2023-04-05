@@ -32,7 +32,8 @@ urlpatterns = [
     path('userInfo/<str:username>',userInfo,name='userInfo'),
     path('modifyInfo',modifyInfo,name='modifyInfo'),
     path('delUser',delUser,name='delUser'),
-    path('readMessage/<int:msgId>',readMessage,name='readMessage')
+    path('readMessage/<int:msgId>',readMessage,name='readMessage'),
+    path('search',search,name="search")
 ]
 
 #加入media文件夹支持

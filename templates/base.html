@@ -15,7 +15,8 @@
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/base.js' %}"></script> 
-    <script src="{% static 'js/post.js' %}"></script>  
+    <script src="{% static 'js/post.js' %}"></script> 
+    <script src="{% static 'js/jquery.form.js' %}"></script>
 
 </head>
 <body id="body">
@@ -83,6 +84,18 @@
                 <li role="presentation" id="eventInformation"><a href="{% url 'forum' 'eventInformation' %}">活动信息</a></li>
                 <li role="presentation" id="lostAndFound"><a href="{% url 'forum' 'lostAndFound' %}">失物招领</a></li>
                 <li role="presentation" id="loveWall"><a href="{% url 'forum' 'loveWall' %}">表白墙</a></li>
+                <li role="presentation">
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <form class="navbar-form navbar-left" action="/search" style="padding: 0px 0px;">
+                                <div class="form-group">
+                                    <input type="text" name="info" class="form-control" placeholder="Search for people" style="width: 100%;">
+                                    <button type="submit" class="btn btn-default">搜索</button>
+                                </div>
+                            </form>
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </div>
         <div id="right-main-container" class="col-xs-10 col-md-10 container">

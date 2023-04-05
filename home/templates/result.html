@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block cssBlock %}
+<link href="{% static 'css/result.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+查询结果
+{% endblock %}
+
+{% block right-main-container %}
+
+{% for user in userList %}
+<div class="user col-xs-12 col-md-3">
+    {% if user.headPortrait %}
+    <img src="{{user.headPortrait.url}}" alt="暂无头像">
+    {% else %}
+    <img src="{% static 'img/defaultHP.jpg' %}" alt="暂无头像">
+    {% endif %}
+    <div class="userInfo">
+        <table>
+            <tr>
+                <th>姓名</th>
+                <td>{{user.nickName}}</td>
+            </tr>
+            <tr>
+                <th>个性签名</th>
+                <td>{{user.personalSignature}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="clearfloat"></div>
+</div>
+{% endfor %}
+{% endblock %}

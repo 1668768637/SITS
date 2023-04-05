@@ -8,19 +8,19 @@ def forum(request,postType):
     menu = postType
     postList = []
     if postType == "anecdoteForum":
-        postList = Post.objects.all().filter(postType="anecdoteForum").order_by("-likesNum")[:4]
+        postList = Post.objects.all().filter(postType="anecdoteForum").order_by("-publishDate")
         postType = "校园轶事"
     if postType == "lostAndFound":
-        postList = Post.objects.all().filter(postType="lostAndFound").order_by("-likesNum")[:4]
+        postList = Post.objects.all().filter(postType="lostAndFound").order_by("-publishDate")
         postType = "失物招领"
     if postType == "driftBottle":
-        postList = Post.objects.all().filter(postType="driftBottle").order_by("-likesNum")[:4]
+        postList = Post.objects.all().filter(postType="driftBottle").order_by("-publishDate")
         postType = "漂流瓶"
     if postType == "eventInformation":
-        postList = Post.objects.all().filter(postType="eventInformation").order_by("-likesNum")[:4]
+        postList = Post.objects.all().filter(postType="eventInformation").order_by("-publishDate")
         postType = "活动信息"
     if postType == "loveWall":
-        postList = Post.objects.all().filter(postType="loveWall").order_by("-likesNum")[:4]
+        postList = Post.objects.all().filter(postType="loveWall").order_by("-publishDate")
         postType = "表白墙"
 
     p = Paginator(postList,10)

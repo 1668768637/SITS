@@ -14,8 +14,7 @@
         <div class="postAuthor">
             <a href="{% url 'userInfo' post.owner.username %}">
                 <p>{{post.owner.nickName}}&nbsp;
-                {{post.create_date.year}}-{{post.create_date.mouth}}-{{post.create_date.day}}&nbsp;
-                {{post.create_date.hour}}:{{post.create_date.minute}}
+                {{post.create_date|date:"Y-m-d H:s"}}
                 </p>
             </a>
         </div>

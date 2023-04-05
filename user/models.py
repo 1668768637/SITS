@@ -5,6 +5,7 @@ import datetime
 from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
 
 
+
 # Create your models here.
 class UserProfileManager(BaseUserManager):
     def create_user(self, password=None, **kwargs):
@@ -49,14 +50,15 @@ class UserProfile(AbstractBaseUser):
         max_length=255,
         null=True,
         blank=True,
+        default="暂未填写",
         unique=False, )
     headPortrait = models.ImageField(verbose_name="头像",null=True,upload_to="Photos/headPortrait")
     nickName = models.CharField(verbose_name="昵称",null=False,max_length=15,default="default")
-    phone = models.CharField(max_length=128, null=True, blank=True)
-    qq = models.CharField(max_length=128, null=True, blank=True)
-    wechat = models.CharField(max_length=128, null=True, blank=True)
-    sex = models.CharField(max_length=45, null=True, blank=True,choices=SEX)
-    personalSignature = models.CharField(verbose_name="个性签名",max_length=500, null=True,blank=True)
+    phone = models.CharField(max_length=128, null=True, blank=True,default="暂未填写")
+    qq = models.CharField(max_length=128, null=True, blank=True,default="暂未填写")
+    wechat = models.CharField(max_length=128, null=True, blank=True,default="暂未填写")
+    sex = models.CharField(max_length=45, null=True, blank=True,choices=SEX,default="男")
+    personalSignature = models.CharField(verbose_name="个性签名",max_length=500, null=True,blank=True,default="暂未填写")
     is_active = models.BooleanField(verbose_name='是否可用', default=True)
     is_admin = models.BooleanField(verbose_name='是否管理员', default=False)
     create_date = models.DateTimeField(

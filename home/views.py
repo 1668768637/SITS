@@ -3,11 +3,13 @@ from django.shortcuts import render, redirect
 from forum.models import Post
 from django.http import JsonResponse
 from django.core.paginator import Paginator
+from user.models import UserProfile
+from django.db.models import Q
 @csrf_exempt
 
 # Create your views here.
 def home(request):
-    postList = Post.objects.all().order_by("-likesNum")
+    postList = Post.objects.all().order_by("-publishDate")
     p = Paginator(postList,10)
     if p.num_pages <= 1:
         pageData = ''
@@ -57,3 +59,12 @@ def home(request):
             'page': page,
         }
     return render(request,'home.html',{'active_menu':'home','postList':postList,'pageData': pageData,})
+
+def search(request):
+    info = request.GET['info']
+    if info:
+        userList = UserProfile.objects.all().filter(Q(username__icontains=info) | Q(nickName__icontains=info))
+
+        return render(request,'result.html',{'userList':userList,})
+    else:
+        return render(request,'result.html',{'userList':None,})

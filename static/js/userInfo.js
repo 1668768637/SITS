@@ -1,6 +1,8 @@
 window.onload = function(){
    postPrepare();
+   createSnowflake();
 }
+
 
 function modifyInfo() {
     $("#userInfo")[0].className="close";
@@ -8,6 +10,7 @@ function modifyInfo() {
     $("#userPosts")[0].className="close";
     $("#userCollections")[0].className="close";
     $("#makePost")[0].className="close";
+    $("#myMessages")[0].className="close";
 }
 
 function cancleModify() {
@@ -16,6 +19,39 @@ function cancleModify() {
     $("#userPosts")[0].className="open";
     $("#userCollections")[0].className="close";
     $("#makePost")[0].className="close";
+}
+
+function myCollections(){
+    $("#userInfo")[0].className="close";
+    $("#userPosts")[0].className="close";
+    $("#userCollections")[0].className="open";
+    $("#makePost")[0].className="close";
+    $("#myMessages")[0].className="close";
+    $("#modifyDiv")[0].className="close";
+}
+function posts(){
+    $("#userInfo")[0].className="open";
+    $("#userPosts")[0].className="open";
+    $("#userCollections")[0].className="close";
+    $("#makePost")[0].className="close";
+    $("#myMessages")[0].className="close";
+    $("#modifyDiv")[0].className="close";
+}
+function makePost(){
+    $("#userInfo")[0].className="close";
+    $("#makePost")[0].className="open";
+    $("#userPosts")[0].className="close";
+    $("#userCollections")[0].className="close";
+    $("#myMessages")[0].className="close";
+    $("#modifyDiv")[0].className="close";
+}
+function myResponse(){
+    $("#userInfo")[0].className="close";
+    $("#makePost")[0].className="close";
+    $("#userPosts")[0].className="close";
+    $("#userCollections")[0].className="close";
+    $("#myMessages")[0].className="open";
+    $("#modifyDiv")[0].className="close";
 }
 
 function modify(){
@@ -35,30 +71,6 @@ function modify(){
     $("#modifyForm").ajaxSubmit(options);
 }
 
-function myCollections(){
-    $("#userPosts")[0].className="close";
-    $("#userCollections")[0].className="open";
-    $("#makePost")[0].className="close";
-    $("#myMessages")[0].className="close";
-}
-function posts(){
-    $("#userPosts")[0].className="open";
-    $("#userCollections")[0].className="close";
-    $("#makePost")[0].className="close";
-    $("#myMessages")[0].className="close";
-}
-function makePost(){
-    $("#makePost")[0].className="open";
-    $("#userPosts")[0].className="close";
-    $("#userCollections")[0].className="close";
-    $("#myMessages")[0].className="close";
-}
-function myResponse(){
-    $("#makePost")[0].className="close";
-    $("#userPosts")[0].className="close";
-    $("#userCollections")[0].className="close";
-    $("#myMessages")[0].className="open";
-}
 
 function delCollection(){
     var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
