@@ -156,7 +156,7 @@ class Message(models.Model):
                                  null=False)
     context = models.TextField(verbose_name="消息内容")
     post = models.ForeignKey(Post,
-                               null=False,
+                               null=True,
                                on_delete=models.CASCADE,
                                related_name="postId")
     hasReaded = models.BooleanField(verbose_name="是否查看",

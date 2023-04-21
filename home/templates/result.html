@@ -22,7 +22,7 @@
         <table>
             <tr>
                 <th>姓名</th>
-                <td>{{user.nickName}}</td>
+                <td><a href="{% url 'userInfo' user.username %}">{{user.nickName}}</a></td>
             </tr>
             <tr>
                 <th>个性签名</th>

@@ -61,6 +61,8 @@
 #userCollections{
     position: absolute;
     width: 100%;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
 #makePost{
@@ -71,6 +73,8 @@
 #myMessages{
     position: absolute;
     width: 100%;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
 .open{
