@@ -147,11 +147,11 @@ class userCollection(models.Model):
 
 class Message(models.Model):
     poster = models.ForeignKey(UserProfile,
-                               on_delete=models.DO_NOTHING,
+                               on_delete=models.CASCADE,
                                related_name="poster",
                                null=False)
     receiver = models.ForeignKey(UserProfile,
-                                 on_delete=models.DO_NOTHING,
+                                 on_delete=models.CASCADE,
                                  related_name="receiver",
                                  null=False)
     context = models.TextField(verbose_name="消息内容")
