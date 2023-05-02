@@ -50,6 +50,7 @@
     </div>
     <div class="commits">
         {% for commit in post.postConmmits.all %}
+            {% if commit.isChecked %}
             <div class="commit" data-id="{{commit.id}}">
                 <div class="postCommit" data-id="{{commit.id}}">
                     <p>
@@ -64,6 +65,7 @@
                 </div>
                 <div class="commitCommits">
                 {% for innerCommit in commit.commitConmmits.all %}
+                    {% if innerCommit.isChecked %}
                     <div class="commitCommit" data-id="{{innerCommit.id}}">
                         <p>
                             <a href="{% url 'userInfo' innerCommit.userOwner.username %}">{{innerCommit.userOwner.nickName}}</a>:{{innerCommit.context}}
@@ -72,9 +74,11 @@
                             {% endif %}
                         </p>
                     </div>
+                    {% endif %}
                 {% endfor %}
                 </div>
             </div>
+            {% endif %}
         {% endfor %}
         <div class="clearfloat"></div>
     </div>

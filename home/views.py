@@ -9,7 +9,7 @@ from django.db.models import Q
 
 # Create your views here.
 def home(request):
-    postList = Post.objects.all().order_by("-publishDate")
+    postList = Post.objects.all().filter(isChecked=True).order_by("-publishDate")
     p = Paginator(postList,10)
     if p.num_pages <= 1:
         pageData = ''

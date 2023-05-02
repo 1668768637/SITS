@@ -46,6 +46,11 @@ class Post(models.Model):
     )
     create_date = models.DateTimeField(
         auto_now_add=True, blank=True, null=True)
+    isChecked = models.BooleanField(
+        verbose_name="是否审核",
+        null=False,
+        default=False
+    )
 
 
     class Meta:
@@ -77,11 +82,13 @@ class Commit(models.Model):
                                 related_name='postConmmits',
                                 verbose_name='主帖子',
                                 null=True,
+                                blank=True,
                                 on_delete=models.CASCADE)
     commitOwner = models.ForeignKey('self',
                                 related_name='commitConmmits',
                                 verbose_name='主评论',
                                 null=True,
+                                blank=True,
                                 on_delete=models.CASCADE)
     context = models.CharField(
                                 verbose_name="内容",
@@ -90,6 +97,11 @@ class Commit(models.Model):
                                 null=False)
     create_date = models.DateTimeField(
         auto_now_add=True, blank=True, null=True)
+    isChecked = models.BooleanField(
+        verbose_name="是否审核通过",
+        null=False,
+        default=False
+    )
 
     class Meta:
         verbose_name = 'Commit'
@@ -157,6 +169,7 @@ class Message(models.Model):
     context = models.TextField(verbose_name="消息内容")
     post = models.ForeignKey(Post,
                                null=True,
+                               blank=True,
                                on_delete=models.CASCADE,
                                related_name="postId")
     hasReaded = models.BooleanField(verbose_name="是否查看",
